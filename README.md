@@ -13,7 +13,5 @@ Todo:
 
   Funktio joka tarkistaa onko kohdelentokenttä annetussa maassa.
   
-  
-
-
+  Funktio joka tarkistaa kohdemaan lentokentän ja arvatun maan lentokentän välisen etäisyyden
   
