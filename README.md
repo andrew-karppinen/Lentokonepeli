@@ -7,11 +7,9 @@ Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/bl
 
 Todo:
 
-  Funktio joka hakee kaikki kaikista maista yhden lentokentän, saa parametriksi: maanosan koodin, palauttaa lentokenttien nimet listassa 
+  Funktio joka hakee kaikki kaikista maista yhden lentokentän, saa parametriksi: maanosan koodin, palauttaa kaikkien lentokenttien nimen ja maan jossa sijaitsee 
 
   Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne) palauttaa nämä listassa, poistaa päällekkäisyydet -tehty
-
-  Funktio joka tarkistaa onko kohdelentokenttä annetussa maassa.
   
   Funktio joka palauttaa kohdemaan lentokentän ja arvatun maan lentokentän välisen etäisyyden, saa parametriksi: kohdelentokentän,arvatun maan, listan kaikista lentokentistä(em lista)
   
