@@ -11,7 +11,7 @@ Todo:
 
   Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne)
 
-  
+  Funktio joka tarkistaa onko kohdelentokenttä annetussa maassa.
   
   
 
