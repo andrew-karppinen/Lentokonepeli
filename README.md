@@ -9,7 +9,7 @@ Todo:
 
   Funktio joka hakee kaikki kaikista maista yhden lentokentän, saa parametriksi: maanosan koodin, palauttaa lentokenttien nimet listassa 
 
-  Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne) palauttaa nämä listassa, poistaa päällekkäisyydet
+  Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne) palauttaa nämä listassa, poistaa päällekkäisyydet -tehty
 
   Funktio joka tarkistaa onko kohdelentokenttä annetussa maassa.
   
