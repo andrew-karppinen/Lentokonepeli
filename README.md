@@ -13,5 +13,5 @@ Todo:
 
   Funktio joka tarkistaa onko kohdelentokenttä annetussa maassa.
   
-  Funktio joka tarkistaa kohdemaan lentokentän ja arvatun maan lentokentän välisen etäisyyden, saa parametriksi: kohdelentokentän,arvatun maan, listan kaikista lentokentistä(em lista)
+  Funktio joka palauttaa kohdemaan lentokentän ja arvatun maan lentokentän välisen etäisyyden, saa parametriksi: kohdelentokentän,arvatun maan, listan kaikista lentokentistä(em lista)
   
