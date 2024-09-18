@@ -7,7 +7,7 @@ Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/bl
 
 Todo:
 
-  Funktio joka arpoo maan ja lentokentä, palauttaa lentokentän nimen sekä maan missä sijaitsee - tehdään tällä hetkellä
+  Funktio joka arpoo maan ja lentokentä, palauttaa lentokentän nimen sekä maan missä sijaitsee - tehty
    
   Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne) palauttaa nämä listassa, poistaa päällekkäisyydet -tehty
   
