@@ -1,12 +1,14 @@
-#Funktio arpoo lentokentän nimen, maan nimen ja mantereen
+#Funktio arpoo lentokentän nimen, maan nimen sille annetun mantereen mukaan.
+
+maanosa = input("Anna Manner: ")
 
 def arpominen(yhteys,maanosa):
-    randomaus = f'SELECT airport.name, country.name FROM airport LEFT JOIN country on airport.iso_country = country.iso_country ORDER BY RAND() where country.continent = {maanosa} LIMIT 1;'
+    randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' ORDER BY RAND() LIMIT 1;"
     kursori = yhteys.cursor()
     kursori.execute(randomaus)
     tulos = kursori.fetchall()
     return tulos
 
-tallennus = arpominen()
+tallennus = arpominen(yhteys,maanosa)
 
 print(tallennus)
