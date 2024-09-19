@@ -7,7 +7,7 @@ Esimerkki yhteyden muodostamisesta ja yhteysolion viemisestä funktiolle
 '''
 
 
-def KyselyFunktio(yhteys:object)->list:
+def MaanosaKoodit(yhteys:object)->list:
     '''
     Tehdään sql kysely ja palautetaan serveriltä saatu vastaus
     '''
@@ -39,6 +39,6 @@ if __name__ == '__main__': #pääohjelma
 
 
     else: #yhteys muodostettu onnistuneesti
-        maanosat = KyselyFunktio(yhteys)
+        maanosat = MaanosaKoodit(yhteys)
         for maanosakoodi in maanosat:
             print(maanosakoodi)
