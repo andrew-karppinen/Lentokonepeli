@@ -12,4 +12,4 @@ Todo:
   Funktio joka hakee tietokannasta kaikkien maanosien koodit(EU,AS, jne) palauttaa nämä listassa, poistaa päällekkäisyydet -tehty
   
   Funktio joka palauttaa kohdelentokentän  ja arvatun maan välisen etäisyyden, saa parametriksi: kohdelentokentän ja maan jota arvattu.
-  Maassa on todennäköiseisti useampia lentokenttiä, funktion tulee valita joku näistä. Sitten funktio palauttaa tämän lentokentän ja kohdelentokentän etäisyyden. Jos maata ei löydy funktio palauttaa vaikka False
+  Maassa on todennäköiseisti useampia lentokenttiä, funktion tulee valita joku näistä. Sitten funktio palauttaa tämän lentokentän ja kohdelentokentän etäisyyden. Jos maata ei löydy funktio palauttaa vaikka False - tehty
