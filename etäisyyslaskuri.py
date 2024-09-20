@@ -8,7 +8,7 @@ def laske_etaisyys(sijainti1: tuple, sijainti2: tuple) -> float:
     return etaisyys
 
 # Funktio, joka hakee satunnaisen lentokentän annetusta maasta ja laskee etäisyyden
-def hae_etaisyys_lentokentta(kohdelentokentta_nimi: str, arvattu_maa: str, yhteys: object):
+def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu_maa: str):
     try:
         kursori = yhteys.cursor()
 
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     yhteys = liity_tietokantaan()
 
-    oikea_maa, etaisyys = hae_etaisyys_lentokentta(kohdelentokentta_nimi, arvottu_maa, yhteys)
+    oikea_maa, etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta_nimi, arvottu_maa)
 
     if oikea_maa:
         if arvottu_maa == oikea_maa:
