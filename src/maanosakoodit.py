@@ -7,7 +7,7 @@ Esimerkki yhteyden muodostamisesta ja yhteysolion viemisestä funktiolle
 '''
 
 
-def MaanosaKoodit(yhteys:object)->list:
+def maanosakoodit(yhteys:object)->list:
     '''
     Tehdään sql kysely ja palautetaan serveriltä saatu vastaus
     '''
@@ -24,14 +24,13 @@ def MaanosaKoodit(yhteys:object)->list:
 
 if __name__ == '__main__': #pääohjelma
 
-
     try:
         yhteys = mysql.connector.connect(
                  host='127.0.0.1',
                  port= 3306,
                  database='flight_game',
-                 user='jimias',
-                 password='dobronx',
+                 user='sqlkayttaja',
+                 password='salasana123',
                  autocommit=True
                  )
     except mysql.connector.Error as err: #virhe yhteyden muodostamisessa
@@ -39,6 +38,4 @@ if __name__ == '__main__': #pääohjelma
 
 
     else: #yhteys muodostettu onnistuneesti
-        maanosat = MaanosaKoodit(yhteys)
-        for maanosakoodi in maanosat:
-            print(maanosakoodi)
+        print(maanosakoodit(yhteys))

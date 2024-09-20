@@ -27,7 +27,6 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu
         maa_query = """SELECT latitude_deg, longitude_deg FROM airport WHERE iso_country = %s"""
         kursori.execute(maa_query, (arvattu_maa,))
         arvattu_maa_lentokentat = kursori.fetchall()
-
         if not arvattu_maa_lentokentat:
             print(f"Maata koodilla {arvattu_maa} ei löytynyt tai sillä ei ole lentokenttiä.")
             return False, None
@@ -55,14 +54,14 @@ def liity_tietokantaan():
         host='127.0.0.1',
         port=3306,
         database='flight_game',
-        user='jessecs',
-        password='mariadb',
+        user='sqlkayttaja',
+        password='salasana123',
         autocommit=True
     )
 
 if __name__ == "__main__":
     # Kysytään käyttäjältä lentokentän nimi ja arvottu maan koodi
-    kohdelentokentta_nimi = input("Anna kohdelentokentän nimi: ")
+    kohdelentokentta_nimi = "Helsinki Vantaa Airport"
     arvottu_maa = input("Anna arvotun maan koodi (esim. FI): ")
 
     yhteys = liity_tietokantaan()
