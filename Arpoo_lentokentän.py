@@ -1,6 +1,6 @@
 #Funktio arpoo lentokentän nimen, maan nimen sille annetun mantereen mukaan.
+import mysql.connector
 
-maanosa = input("Anna Manner: ")
 
 def arpominen(yhteys,maanosa:str="*"):
     
@@ -19,6 +19,21 @@ def arpominen(yhteys,maanosa:str="*"):
     return tulos
 
 
-tallennus = arpominen(yhteys,maanosa)
 
-print(tallennus)
+if __name__ == '__main__': #testiohjelma
+
+    try:
+        yhteys = mysql.connector.connect(
+                 host='127.0.0.1',
+                 port= 3306,
+                 database='flight_game',
+                 user='sqlkayttaja',
+                 password='salasana123',
+                 autocommit=True
+                 )
+    except mysql.connector.Error as err: #virhe yhteyden muodostamisessa
+        print(err)
+
+
+    else: #yhteys muodostettu onnistuneesti
+        print(arpominen(yhteys,"EU"))
