@@ -8,9 +8,9 @@ def arpominen(yhteys,maanosa:str="*"):
     # Hakutulosta voi rajata maanoasan mukaan tai hakea kaikista maanosista
     
     if maanosa=="*": #haetaan kaikista maanosista
-        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country ORDER BY RAND() LIMIT 1;"
+        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
     else:
-        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' ORDER BY RAND() LIMIT 1;"
+        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
 
 
     kursori = yhteys.cursor()
