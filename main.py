@@ -93,6 +93,6 @@ while True:
             maat = hae_maat(yhteys)
             print("Tarkoititko: ", tarkistamaa(maat,arvaus))
         else:
-            print("Väärin, etäisyys: ", etaisyys)
+            print(f"Väärin, etäisyys: {etaisyys:.0f} km")
 
 yhteys.close()
