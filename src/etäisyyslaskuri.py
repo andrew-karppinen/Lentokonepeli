@@ -19,17 +19,17 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu
 
         if not kohde_tulos:
             print(f"Lentokenttää nimellä {kohdelentokentta_nimi} ei löytynyt.")
-            return False, None
+            return False
 
         kohde_lat, kohde_lon, oikea_maa = kohde_tulos  # Kohdelentokentän koordinaatit ja oikea maan koodi
 
         # Hae kaikki lentokentät arvatussa maassa
-        maa_query = """SELECT latitude_deg, longitude_deg FROM airport WHERE iso_country = %s"""
-        kursori.execute(maa_query, (arvattu_maa,))
+        maa_query = f'SELECT airport.latitude_deg, airport.longitude_deg FROM airport,country where airport.iso_country = country.iso_country and country.name = "{arvattu_maa}"'
+        kursori.execute(maa_query)
         arvattu_maa_lentokentat = kursori.fetchall()
         if not arvattu_maa_lentokentat:
             print(f"Maata koodilla {arvattu_maa} ei löytynyt tai sillä ei ole lentokenttiä.")
-            return False, None
+            return False
 
         # Valitaan satunnainen lentokenttä kyseisestä maasta
         satunnainen_lentokentta = random.choice(arvattu_maa_lentokentat)
@@ -39,7 +39,7 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu
         etaisyys = laske_etaisyys((kohde_lat, kohde_lon), (kentan_lat, kentan_lon))
 
         # Palautetaan oikea maan koodi ja etäisyys
-        return oikea_maa, etaisyys
+        return  etaisyys
 
     except mysql.connector.Error as err:
         print(f"Tietokantavirhe: {err}")
@@ -62,7 +62,7 @@ def liity_tietokantaan():
 if __name__ == "__main__":
     # Kysytään käyttäjältä lentokentän nimi ja arvottu maan koodi
     kohdelentokentta_nimi = "Helsinki Vantaa Airport"
-    arvottu_maa = input("Anna arvotun maan koodi (esim. FI): ")
+    arvottu_maa = input("Anna arvotun maan koodi (esim. Finland): ")
 
     yhteys = liity_tietokantaan()
 

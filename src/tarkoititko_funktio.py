@@ -8,7 +8,7 @@ Esimerkki yhteyden muodostamisesta ja yhteysolion viemisestä funktiolle
 '''
 
 
-def KyselyFunktio(yhteys:object)->list:
+def hae_maat(yhteys:object)->list:
     '''
     Tehdään sql kysely ja palautetaan serveriltä saatu vastaus
     '''
@@ -26,7 +26,7 @@ def tarkistamaa(maat: list, kayttajan_syote: str) -> str:
     kayttajan_syote = kayttajan_syote.lower()
 
     if kayttajan_syote in maat:
-        return kayttajan_syote.capitalize()
+        return None
 
     lahimmat = difflib.get_close_matches(kayttajan_syote, maat, n=1, cutoff=0.6)
 
@@ -42,8 +42,8 @@ def muodosta_yhteys():
             host='127.0.0.1',
             port=3306,
             database='flight_game',
-            user='jessecs',
-            password='mariadb',
+            user='sqlkayttaja',
+            password='salasana123',
             autocommit=True
         )
         return yhteys
@@ -53,7 +53,7 @@ def muodosta_yhteys():
 
 
     else:  # yhteys muodostettu onnistuneesti
-        print(KyselyFunktio(yhteys))
+        print(hae_maat(yhteys))
 
 
 if __name__ == '__main__': #pääohjelma
@@ -61,7 +61,7 @@ if __name__ == '__main__': #pääohjelma
 
     if yhteys:
 
-        maat=KyselyFunktio(yhteys)
+        maat=hae_maat(yhteys)
         kayttajan_syote = input("Anna maan nimi: ")
 
         tulos = tarkistamaa(maat, kayttajan_syote)

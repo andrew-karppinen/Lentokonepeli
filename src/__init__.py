@@ -10,3 +10,5 @@ from src.clear_console import clear_console
 
 
 from src.asetukset import *
+
+from src.tarkoititko_funktio import tarkistamaa,hae_maat

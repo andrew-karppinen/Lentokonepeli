@@ -16,7 +16,6 @@ def yhdista():
     muuten palautetaan False
 
     Mahdollista käyttää tiedostoon tallennettuja asetuksia
-
     '''
 
 
@@ -69,8 +68,10 @@ def yhdista():
 yhteys = yhdista()
 
 
-print("Maanosat: ", maanosakoodit(yhteys))
+if yhteys == False:
+    exit()
 
+print("Maanosat: ", maanosakoodit(yhteys))
 
 print("Pelaa kaikissa maanosissa: * ")
 print("Tai anna jokin maanosa")
@@ -78,4 +79,20 @@ print("Tai anna jokin maanosa")
 
 valinta = input("Valinta: ").upper()
 
-print(arpominen(yhteys,valinta))
+kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys,valinta)
+print(kohdelentokentta)
+while True:
+
+    arvaus = input("Anna maa: ")
+
+    if arvaus.lower() == kohdemaa.lower():
+        break
+    else:
+        etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
+        if etaisyys == False: #jos maata ei löydy
+            maat = hae_maat(yhteys)
+            print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+        else:
+            print("Väärin, etäisyys: ", etaisyys)
+
+yhteys.close()
