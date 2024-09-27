@@ -3,14 +3,9 @@ import difflib
 
 
 
-'''
-Esimerkki yhteyden muodostamisesta ja yhteysolion viemisestä funktiolle
-'''
-
-
 def hae_maat(yhteys:object)->list:
     '''
-    Tehdään sql kysely ja palautetaan serveriltä saatu vastaus
+    Haetaan sql palvelimelta kaikkien maiden nimet ja palautetaan ne
     '''
 
     komento = "SELECT name FROM country;"  #sql komento
@@ -23,6 +18,9 @@ def hae_maat(yhteys:object)->list:
     return tulos
 
 def tarkistamaa(maat: list, kayttajan_syote: str) -> str:
+    '''
+    Palautetaan maan nimi joka on lähimpänä käyttäjän syötettä
+    '''
     kayttajan_syote = kayttajan_syote.lower()
 
     if kayttajan_syote in maat:
@@ -56,7 +54,7 @@ def muodosta_yhteys():
         print(hae_maat(yhteys))
 
 
-if __name__ == '__main__': #pääohjelma
+if __name__ == '__main__': #testiohjelma
     yhteys = muodosta_yhteys()
 
     if yhteys:
