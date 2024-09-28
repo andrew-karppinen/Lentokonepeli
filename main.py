@@ -77,7 +77,7 @@ valinta = input("valitse toiminto: 1 = uusi peli 2 = tulosta käyttäjien pistet
 
 
 if valinta == "2":
-    TulostaPelaajatiedot(yhteys)
+    tulosta_pelaajatiedot(yhteys)
     exit()
 elif valinta == "3":
     exit()
@@ -130,7 +130,7 @@ pelin_tiedot.pelaajat_[nimimerkki] = pisteet #päivitetään pelaajan pisteet pe
 
 
 
-pelin_tiedot.TallennaPelinTiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
+pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
 
 yhteys.close()
 

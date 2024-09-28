@@ -11,7 +11,7 @@ class PelinTiedot:
 
 
 
-    def Onko_pelaaja_olemass(self,yhteys,nimi)->bool:
+    def onko_pelaaja_olemass(self, yhteys, nimi)->bool:
         '''
         Tarkistaa onko tämän niminen pelaaja tietokannassa
         '''
@@ -28,12 +28,12 @@ class PelinTiedot:
         else:
             return True
 
-    def LuoPelaaja(self,yhteys,nimi):
+    def luo_pelaaja(self, yhteys, nimi):
         '''
         Luo uuden pelaajan tietokantaan
         '''
 
-        if self.Onko_pelaaja_olemass(yhteys,nimi) == False: #käyttäjää  ei ole jo olemassa
+        if self.onko_pelaaja_olemass(yhteys, nimi) == False: #käyttäjää  ei ole jo olemassa
             komento = f"INSERT INTO user_information (name) VALUES ('{nimi}');"
 
             kursori = yhteys.cursor()  # luodaan kursori
@@ -43,7 +43,7 @@ class PelinTiedot:
             print("Pelaaja on jo olemassa")
 
 
-    def TallennaPelinTiedot(self, yhteys):
+    def tallenna_pelin_tiedot(self, yhteys):
 
         #lisätään game tauluun uusi rivi
         #continent = self.maanosa_
@@ -57,7 +57,7 @@ class PelinTiedot:
 
         #lisätään user_games tauluun uusi rivi
         for pelaaja in self.pelaajat_:
-            self.LuoPelaaja(yhteys,pelaaja) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
+            self.luo_pelaaja(yhteys, pelaaja) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
 
             komento = f"""INSERT INTO user_games (game_id,user_points,name)
             values ((SELECT MAX(game_id) FROM game),{self.pelaajat_[pelaaja]},'{pelaaja}');
@@ -67,7 +67,7 @@ class PelinTiedot:
 
         kursori.close()
 
-def TulostaPelaajatiedot(yhteys: object):
+def tulosta_pelaajatiedot(yhteys: object):
     '''
     Tulostaa pelaajien nimet, pelattujen pelien määrän ja pisteiden keskiarvon
     '''
@@ -119,7 +119,7 @@ if __name__ == '__main__': #testiohjelma
         tiedot.pelaajat_["Matti"] = 5
         tiedot.pelaajat_["Pekka"] = 0
 
-        tiedot.TallennaPelinTiedot(yhteys) #tallennetaan pelin ja pelaajien tiedot tietokantaan
-        TulostaPelaajatiedot(yhteys)
+        tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin ja pelaajien tiedot tietokantaan
+        tulosta_pelaajatiedot(yhteys)
         #tiedot.LuoPelaaja(yhteys,"Jukka")
 
