@@ -65,27 +65,55 @@ def yhdista():
 
 
 
-yhteys = yhdista()
+yhteys = yhdista() #yhdistetään tietokantaan
 
-
-if yhteys == False:
+if yhteys == False: #jos yhtyes
     exit()
+
+
+
+
+valinta = input("valitse toiminto: 1 = uusi peli 2 = tulosta käyttäjien pistetilastot, 3 = poistu ").lower()
+
+
+if valinta == "2":
+    TulostaPelaajatiedot(yhteys)
+    exit()
+elif valinta == "3":
+    exit()
+
+
+
+
+#peliin:
 
 print("Maanosat: ", maanosakoodit(yhteys))
 
 print("Pelaa kaikissa maanosissa: * ")
 print("Tai anna jokin maanosa")
 
+maanosa = input("Valinta: ").upper()
 
-valinta = input("Valinta: ").upper()
 
-kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys,valinta)
+pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
+
+pelaajien_maara = int(input("Anna pelaajien määrä: (1-5): ")) #ei tee tällä hetkellä mitään
+
+
+
+nimimerkki = input("Anna nimimerkki: ")
+
+pelin_tiedot.pelaajat_[nimimerkki] = 0 #listään pelaaja tiedot olioon
+
+kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
 print(kohdelentokentta)
-while True:
 
-    arvaus = input("Anna maa: ")
+
+for pisteet in range(10,-1,-1): #peli silmukka
+    arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
 
     if arvaus.lower() == kohdemaa.lower():
+        print("Arvauksesi oli oikein!")
         break
     else:
         etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
@@ -95,4 +123,17 @@ while True:
         else:
             print(f"Väärin, etäisyys: {etaisyys:.0f} km")
 
+
+print("Maa oli: ", kohdemaa)
+print("Pisteet: ", pisteet)
+pelin_tiedot.pelaajat_[nimimerkki] = pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
+
+
+
+pelin_tiedot.TallennaPelinTiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
+
 yhteys.close()
+
+
+
+

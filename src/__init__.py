@@ -11,4 +11,6 @@ from src.clear_console import clear_console
 
 from src.asetukset import *
 
+from src.tiedot import PelinTiedot, TulostaPelaajatiedot
+
 from src.tarkoititko_funktio import tarkistamaa,hae_maat
