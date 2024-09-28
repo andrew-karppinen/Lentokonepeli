@@ -109,7 +109,7 @@ kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja 
 print(kohdelentokentta)
 
 
-for pisteet in range(10,0,-1): #peli silmukka
+for pisteet in range(10,-1,-1): #peli silmukka
     arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
 
     if arvaus.lower() == kohdemaa.lower():
