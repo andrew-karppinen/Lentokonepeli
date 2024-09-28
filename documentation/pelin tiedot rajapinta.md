@@ -14,9 +14,9 @@
 
 ## Kun peli on ohi tallennetaan pelin ja pelaajien tiedot tietokantaan
 
-> tiedot.TallennaPelinTiedot(yhteys:object)
+> tiedot.tallenna_pelin_tiedot(yhteys:object)
 
 
 ## Tulosta pelaajien Tiedot:
 
-> TulostaPelaajatiedot(yhteys:object)
+> tulosta_pelaajatiedot(yhteys:object)
