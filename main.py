@@ -103,7 +103,7 @@ pelaajien_maara = int(input("Anna pelaajien määrä: (1-5): ")) #ei tee tällä
 
 nimimerkki = input("Anna nimimerkki: ")
 
-pelin_tiedot.pelaajat_[nimimerkki] = 0 #listään pelaaja tiedot olioon
+pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
 
 kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
 print(kohdelentokentta)
@@ -132,7 +132,7 @@ while True: #peli silmukka
 
 print("Maa oli: ", kohdemaa)
 print("Pisteet: ", pisteet)
-pelin_tiedot.pelaajat_[nimimerkki] = pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
+pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
 
