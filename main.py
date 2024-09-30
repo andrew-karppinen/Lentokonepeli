@@ -105,34 +105,39 @@ nimimerkki = input("Anna nimimerkki: ")
 
 pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
 
-kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
-print(kohdelentokentta)
+for i in range(0,5): #pelaaja pelaa 5 kierrosta
 
-pisteet = 5 #pelaajan pisteet
 
-while True: #peli silmukka
+    print("############")
+    print("Kierros: ", i+1)
+    kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
+    print(kohdelentokentta)
 
-    if pisteet == 0:
-        break
+    pisteet = 5 #pelaajan pisteet
 
-    arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
+    while True: #peli silmukka
 
-    if arvaus.lower() == kohdemaa.lower():
-        print("Arvauksesi oli oikein!")
-        break
-    else:
-        etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
-        if etaisyys == False: #jos maata ei löydy
-            maat = hae_maat(yhteys)
-            print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+        if pisteet == 0:
+            break
+
+        arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
+
+        if arvaus.lower() == kohdemaa.lower():
+            print("Arvauksesi oli oikein!")
+            break
         else:
-            print(f"Väärin, etäisyys: {etaisyys:.0f} km")
+            etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
+            if etaisyys == False: #jos maata ei löydy
+                maat = hae_maat(yhteys)
+                print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+            else:
+                print(f"Väärin, etäisyys: {etaisyys:.0f} km")
 
-    pisteet -= 1
+        pisteet -= 1
 
-print("Maa oli: ", kohdemaa)
-print("Pisteet: ", pisteet)
-pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
+    print("Maa oli: ", kohdemaa)
+    print("Pisteet kierroksesta: ", pisteet)
+    pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
 
