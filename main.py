@@ -108,8 +108,13 @@ pelin_tiedot.pelaajat_[nimimerkki] = 0 #listään pelaaja tiedot olioon
 kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
 print(kohdelentokentta)
 
+pisteet = 5 #pelaajan pisteet
 
-for pisteet in range(10,-1,-1): #peli silmukka
+while True: #peli silmukka
+
+    if pisteet == 0:
+        break
+
     arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
 
     if arvaus.lower() == kohdemaa.lower():
@@ -123,6 +128,7 @@ for pisteet in range(10,-1,-1): #peli silmukka
         else:
             print("Väärin, etäisyys: ", etaisyys)
 
+    pisteet -= 1
 
 print("Maa oli: ", kohdemaa)
 print("Pisteet: ", pisteet)
