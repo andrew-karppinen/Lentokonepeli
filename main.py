@@ -73,7 +73,7 @@ if yhteys == False: #jos yhtyes
 
 
 
-valinta = input("valitse toiminto: 1 = uusi peli 2 = tulosta käyttäjien pistetilastot, 3 = poistu ").lower()
+valinta = input("valitse toiminto:\n1 = uusi peli\n2 = tulosta käyttäjien pistetilastot\n3 = poistu\n").lower()
 
 
 if valinta == "2":
@@ -87,7 +87,7 @@ elif valinta == "3":
 
 #peliin:
 
-print("Maanosat: ", maanosakoodit(yhteys))
+print("Maanosat: " + ", ".join(maanosakoodit(yhteys)))
 
 print("Pelaa kaikissa maanosissa: * ")
 print("Tai anna jokin maanosa")
