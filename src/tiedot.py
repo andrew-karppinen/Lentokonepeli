@@ -9,7 +9,7 @@ class PelinTiedot:
         self.pelaajat_ = {} #("nimi":pisteet)
 
 
-    def tulosta_taman_pelin_tiedot(self):
+    def tulosta_tiedot(self):
         '''
         Tulostaa pelin tiedot
         '''
@@ -67,7 +67,7 @@ class PelinTiedot:
 
             komento = f"""INSERT INTO user_games (game_id,user_points,name)
             values ((SELECT MAX(game_id) FROM game),{self.pelaajat_[pelaaja]},'{pelaaja}');
-            """
+            """ #lisätään pelaajalle uusi rivi user_games tauluun
 
             kursori.execute(komento)  # suoritetaan komento
 
@@ -97,7 +97,6 @@ def tulosta_pelaajatiedot(yhteys: object):
         print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2]/rivi[1]}")
 
     kursori.close()
-
 
 
 
