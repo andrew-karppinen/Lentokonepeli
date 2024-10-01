@@ -38,12 +38,12 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu
         # Lasketaan etäisyys kohdelentokentän ja satunnaisesti valitun lentokentän välillä
         etaisyys = laske_etaisyys((kohde_lat, kohde_lon), (kentan_lat, kentan_lon))
 
-        # Palautetaan oikea maan koodi ja etäisyys
+        #palautetaan etäisyys
         return  etaisyys
 
     except mysql.connector.Error as err:
         print(f"Tietokantavirhe: {err}")
-        return False, None
+        return False
 
     finally:
         kursori.close()
@@ -73,7 +73,7 @@ if __name__ == "__main__":
             print("Onnittelut! Arvauksesi on oikein.")
         else:
             print(f"Väärin. Oikea maan koodi on {oikea_maa}.")
-            print(f"Etäisyys arvattujen maan lentokentistä kohdelentokenttään: {etaisyys:.0f} km")
+            print(f"Etäisyys arvattujen maan lentokentistä kohdelentokenttään: {etaisyys:.2f} km")
     else:
         print("Lentokenttää tai maata ei löytynyt.")
 
