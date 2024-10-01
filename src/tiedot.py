@@ -73,6 +73,8 @@ class PelinTiedot:
 
         kursori.close()
 
+
+
 def tulosta_pelaajatiedot(yhteys: object):
     '''
     Tulostaa pelaajien nimet, pelattujen pelien määrän ja pisteiden keskiarvon
@@ -81,20 +83,30 @@ def tulosta_pelaajatiedot(yhteys: object):
     SELECT
         user_information.name,
         COUNT(user_games.game_id) AS games_played,
-        SUM(user_games.user_points) AS total_points
+        SUM(user_games.user_points) AS total_points,
+        game.continent
     FROM
         user_information
     LEFT JOIN
         user_games ON user_information.name = user_games.name
+    LEFT JOIN
+        game ON user_games.game_id = game.game_id
     GROUP BY
-        user_information.name;
+        user_information.name,game.continent
+    ORDER BY
+        user_games.user_points DESC;
     """
     kursori = yhteys.cursor()  # luodaan kursori
     kursori.execute(komento)  # suoritetaan komento
     tulos = kursori.fetchall()  # haetaan kaikki tulokset
 
+    continents = "Koko maapallo"
+
     for rivi in tulos:
-        print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2]/rivi[1]}")
+        if rivi[3] is None:
+            print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0}, Eniten pisteitä maanosassa: {continents}.")
+        else:
+            print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0}, Eniten pisteitä maanosassa: {rivi[3]}.")
 
     kursori.close()
 
