@@ -4,8 +4,18 @@ init()
 from src import * #importataan funktiot
 
 
+def tulosta_valikko():
+    print(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu")
 
-
+def tulosta_säännöt():
+    print("Pelin säännöt ovat seuraavat: ")
+    print("\nPeliin voi osallistua 1-5 pelaajaa. Pelaajat valitsevat pelin alussa, missä maanosassa he pelaavat."
+            "\nValinnan jälkeen pelaajalta pyydetään nimimerkki, jonka jälkeen peli alkaa. "
+            "\nPeli koostuu viidestä kierroksesta. Jokaisella kierroksella pelaajalle annetaan lentokenttä jostakin. "
+            "\nmaasta, ja hänen tehtävänään on arvata, missä maassa kyseinen lentokenttä sijaitsee. Pelaajalla on"
+            "\nviisi arvauskertaa per kierros, ja jokaisesta väärästä arvauksesta vähennetään yksi piste. "
+            "\nJos pelaaja arvaa oikein ensimmäisellä yrityksellä, hän saa täydet 5 pistettä."
+            "\nMaksimipistemäärä on 5 pistettä per kierros, eli yhteensä 25 pistettä kaikista viidestä kierroksesta.\n")
 
 
 def yhdista():
@@ -74,10 +84,14 @@ if yhteys == False: #jos yhtyes
 
 
 
-valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu\n").lower()
-
-
 while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
+    valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu\n4 = Pelinsäännöt\n").lower()
+
+    if valinta == "4":
+        tulosta_säännöt()  # Tulostetaan säännöt
+        # Sääntöjen jälkeen palataan valikkoon (ilman toiminnon 4 esittämistä)
+        tulosta_valikko()
+        valinta = input(Fore.LIGHTWHITE_EX).lower()
     if valinta == "1":
         break
     elif valinta == "2":
@@ -85,8 +99,6 @@ while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
         exit()
     elif valinta == "3":
         exit()
-
-
 
 
 #peliin:
