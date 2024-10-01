@@ -28,7 +28,6 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu
         kursori.execute(maa_query)
         arvattu_maa_lentokentat = kursori.fetchall()
         if not arvattu_maa_lentokentat:
-            print(f"Maata nimellä {arvattu_maa} ei löytynyt tai sillä ei ole lentokenttiä.")
             return False
 
         # Valitaan satunnainen lentokenttä kyseisestä maasta
