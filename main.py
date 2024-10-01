@@ -5,8 +5,6 @@ from src import * #importataan funktiot
 
 
 
-
-
 def yhdista():
 
     '''
@@ -76,11 +74,14 @@ if yhteys == False: #jos yhtyes
 valinta = input("valitse toiminto:\n1 = uusi peli\n2 = tulosta käyttäjien pistetilastot\n3 = poistu\n").lower()
 
 
-if valinta == "2":
-    tulosta_pelaajatiedot(yhteys)
-    exit()
-elif valinta == "3":
-    exit()
+while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
+    if valinta == "1":
+        break
+    elif valinta == "2":
+        tulosta_pelaajatiedot(yhteys)
+        exit()
+    elif valinta == "3":
+        exit()
 
 
 
@@ -98,7 +99,20 @@ maanosa = input("Valinta: ").upper()
 pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
 
 
-pelaajien_maara = int(input("Anna pelaajien määrä: (1-5): ")) #ei tee tällä hetkellä mitään
+while True: #kysytään käyttäjältä pelaajien määrä ja tarkistetaan syötteen oikeellisuus
+    pelaajien_maara = input("Anna pelaajien määrä: (1-5): ") #ei tee tällä hetkellä mitään
+
+    if pelaajien_maara.isdigit() == False: #virheellinen syöte
+        print("Virheellinen syöte")
+        continue
+    else:
+        pelaajien_maara = int(pelaajien_maara)
+        if pelaajien_maara < 1 or pelaajien_maara > 5:
+            print("Virheellinen syöte")
+            continue
+        else:
+            break
+
 
 for i in range(pelaajien_maara):
 
@@ -146,7 +160,7 @@ for i in range(pelaajien_maara):
 
 pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
 
-pelin_tiedot.tulosta_taman_pelin_tiedot() #tulostetaan pelin tiedot
+pelin_tiedot.tulosta_tiedot() #tulostetaan pelin tiedot
 
 yhteys.close() #suljetaan tietokantayhteys
 
