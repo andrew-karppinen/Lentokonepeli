@@ -9,7 +9,15 @@ class PelinTiedot:
         self.pelaajat_ = {} #("nimi":pisteet)
 
 
-
+    def tulosta_taman_pelin_tiedot(self):
+        '''
+        Tulostaa pelin tiedot
+        '''
+        print(f"Maanosa: {self.maanosa_}")
+        for pelaaja in self.pelaajat_:
+            print(f"Pelaaja: {pelaaja}, Pisteet: {self.pelaajat_[pelaaja]}")
+    
+    
 
     def onko_pelaaja_olemass(self, yhteys, nimi)->bool:
         '''
@@ -39,8 +47,6 @@ class PelinTiedot:
             kursori = yhteys.cursor()  # luodaan kursori
             kursori.execute(komento)
             kursori.close()
-        else:
-            print("Pelaaja on jo olemassa")
 
 
     def tallenna_pelin_tiedot(self, yhteys):
