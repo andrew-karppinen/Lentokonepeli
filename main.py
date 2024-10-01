@@ -97,53 +97,58 @@ maanosa = input("Valinta: ").upper()
 
 pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
 
+
 pelaajien_maara = int(input("Anna pelaajien määrä: (1-5): ")) #ei tee tällä hetkellä mitään
 
+for i in range(pelaajien_maara):
+
+    nimimerkki = input("Anna nimimerkki: ")
+
+    pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
 
 
-nimimerkki = input("Anna nimimerkki: ")
 
-pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
-
-for i in range(0,5): #pelaaja pelaa 5 kierrosta
+    for j in range(0,5): #pelaaja pelaa 5 kierrosta
 
 
-    print("############")
-    print("Kierros: ", i+1)
-    kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
-    print(kohdelentokentta)
+        print("############")
+        print("Kierros: ", j+1)
+        kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
+        print(kohdelentokentta)
 
-    pisteet = 5 #pelaajan pisteet
+        pisteet = 5 #pelaajan pisteet
 
-    while True: #peli silmukka
+        while True: #peli silmukka
 
-        if pisteet == 0:
-            break
+            if pisteet == 0:
+                break
 
-        arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
+            arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
 
-        if arvaus.lower() == kohdemaa.lower():
-            print("Arvauksesi oli oikein!")
-            break
-        else:
-            etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
-            if etaisyys == False: #jos maata ei löydy
-                maat = hae_maat(yhteys)
-                print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+            if arvaus.lower() == kohdemaa.lower():
+                print("Arvauksesi oli oikein!")
+                break
             else:
-                print(f"Väärin, etäisyys: {etaisyys:.0f} km")
+                etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
+                if etaisyys == False: #jos maata ei löydy
+                    maat = hae_maat(yhteys)
+                    print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+                else:
+                    print(f"Väärin, etäisyys: {etaisyys:.0f} km")
 
-        pisteet -= 1
+            pisteet -= 1
 
-    print("Maa oli: ", kohdemaa)
-    print("Pisteet kierroksesta: ", pisteet)
-    pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
+        print("Maa oli: ", kohdemaa)
+        print("Pisteet kierroksesta: ", pisteet)
+        pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
 
 pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
 
-yhteys.close()
+pelin_tiedot.tulosta_taman_pelin_tiedot() #tulostetaan pelin tiedot
+
+yhteys.close() #suljetaan tietokantayhteys
 
 
 
