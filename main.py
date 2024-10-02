@@ -130,7 +130,13 @@ while True: #kysytään käyttäjältä pelaajien määrä ja tarkistetaan syöt
 
 for i in range(pelaajien_maara):
 
-    nimimerkki = input("Anna nimimerkki: ")
+    while True: #kysytään pelaajan nimimerkkiä ja tarkistetaan onko se jo annettu toiselle pelaajalle tässä pelissä
+        nimimerkki = input("Anna nimimerkki: ")
+        if nimimerkki in pelin_tiedot.pelaajat_:
+            print(Fore.RED + "❌ Nimimerkki on jo käytössä")
+        else:
+            break
+
 
     pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
 
