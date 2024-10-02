@@ -103,12 +103,14 @@ while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
 
 #peliin:
 
-print("Valitse maanosa: " + ", ".join(maanosakoodit(yhteys)))
+while True:
+    print("Valitse maanosa: NA, OC, AF, AN, EU, AS, SA")
 
-print("Valitse * jos haluat pelata kaikissa maanosissa.")
+    print("Valitse * jos haluat pelata kaikissa maanosissa.")
 
-maanosa = input("Valinta: ").upper()
-
+    maanosa = input("Valinta: ").upper()
+    if maanosa in ["NA", "OC", "AF", "AN", "EU", "AS", "SA", "*"]:
+        break
 
 pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
 
