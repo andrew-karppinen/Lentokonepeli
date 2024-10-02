@@ -1,6 +1,6 @@
 import mysql.connector
 from colorama import init, Fore, Style
-init()
+init() #alustetaan colorama moduuli
 from src import * #importataan funktiot
 
 
@@ -137,7 +137,7 @@ for i in range(pelaajien_maara):
     for i in range(0,5): #pelaaja pelaa 5 kierrosta
 
 
-        print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)
+        print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
         print(Fore.LIGHTWHITE_EX + "Kierros: ", i+1)
         print()
         kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
@@ -173,6 +173,7 @@ for i in range(pelaajien_maara):
         pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
+print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
 
 pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
 
