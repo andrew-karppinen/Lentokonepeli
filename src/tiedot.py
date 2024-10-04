@@ -1,5 +1,6 @@
 import mysql.connector
-
+from colorama import init, Fore, Style
+init()
 
 
 class PelinTiedot:
@@ -103,10 +104,12 @@ def tulosta_pelaajatiedot(yhteys: object):
     continents = "Koko maapallo"
 
     for rivi in tulos:
+
         if rivi[3] is None:
-            print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0}, Eniten pisteitä maanosassa: {continents}.")
+            print(f"{Fore.LIGHTWHITE_EX}Pelaaja: {rivi[0]:<10} {Fore.LIGHTWHITE_EX}| Pelit: {rivi[1]:<3} {Fore.LIGHTWHITE_EX}| Pisteiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0:<5f} {Fore.LIGHTWHITE_EX}| Eniten pisteitä maanosassa: {continents}{Style.RESET_ALL}")
         else:
-            print(f"Pelaaja: {rivi[0]}, Pelit: {rivi[1]}, Pisteeiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0}, Eniten pisteitä maanosassa: {rivi[3]}.")
+            print(f"{Fore.LIGHTWHITE_EX}Pelaaja: {rivi[0]:<10} {Fore.LIGHTWHITE_EX}| Pelit: {rivi[1]:<3} {Fore.LIGHTWHITE_EX}| Pisteiden keskiarvo: {rivi[2] / rivi[1] if rivi[1] > 0 else 0:<5f} {Fore.LIGHTWHITE_EX}| Eniten pisteitä maanosassa: {rivi[3]}{Style.RESET_ALL}")
+
 
     kursori.close()
 
