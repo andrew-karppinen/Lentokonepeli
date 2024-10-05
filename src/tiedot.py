@@ -85,17 +85,21 @@ def tulosta_pelaajatiedot(yhteys: object):
         user_information.name,
         COUNT(user_games.game_id) AS games_played,
         SUM(user_games.user_points) AS total_points,
-        game.continent
+        (SELECT game.continent
+         FROM user_games AS ug
+         JOIN game ON ug.game_id = game.game_id
+         WHERE ug.name = user_information.name
+         GROUP BY game.continent
+         ORDER BY SUM(ug.user_points) DESC
+         LIMIT 1) AS top_continent
     FROM
         user_information
     LEFT JOIN
         user_games ON user_information.name = user_games.name
-    LEFT JOIN
-        game ON user_games.game_id = game.game_id
     GROUP BY
-        user_information.name,game.continent
+        user_information.name
     ORDER BY
-        user_games.user_points DESC;
+        total_points DESC;
     """
     kursori = yhteys.cursor()  # luodaan kursori
     kursori.execute(komento)  # suoritetaan komento

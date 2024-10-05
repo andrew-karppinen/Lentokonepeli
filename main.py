@@ -95,7 +95,10 @@ while True: #pelin pääsilmukka
         if valinta == "1":
             break
         elif valinta == "2":
+            print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)  # tulostetaan väliviiva
             tulosta_pelaajatiedot(yhteys)
+            print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)  # tulostetaan väliviiva
+
 
         elif valinta == "3":
             yhteys.close() #suljetaan yhteys
@@ -182,13 +185,13 @@ while True: #pelin pääsilmukka
             pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
-        print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
+    print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
 
-        pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
+    pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
 
-        pelin_tiedot.tulosta_tiedot() #tulostetaan pelin tiedot
+    pelin_tiedot.tulosta_tiedot() #tulostetaan pelin tiedot
 
 
-        print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
+    print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
 
 
