@@ -160,7 +160,8 @@ while True: #pelin pääsilmukka
 
             while True: #peli silmukka
 
-                if pisteet == 0:
+                if pisteet == 1:
+                    pisteet = 0
                     break
 
                 if arvaus.lower() == kohdemaa.lower():
