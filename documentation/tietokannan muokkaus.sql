@@ -1,6 +1,6 @@
 
 
--- Varmista että käyttäjällä tarvittavat oikeudet tietokantaan
+-- Varmista että käyttäjällä tarvittavat oikeudet tietokantaan eli ainakin: Drop,update,insert,delete,create,alter,select jne
 
 
 -- Poista taulut, jos ne ovat jo olemassa:
