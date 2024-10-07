@@ -46,12 +46,18 @@ def yhdista():
         if lue_asetukset == False: #kysytään asetukset käyttäjältä
             print("Anna sql palvelimen tiedot, (exit = poistu)")
             server_ip = input("Anna serverin ip: ")
+
+            if server_ip.lower() == "exit":
+                return False
+
             kayttaja = input("Anna käyttäjätunnus: ")
+            if kayttaja.lower() == "exit":
+                return False
+
             salasana = input("Anna salasana: ")
+            if salasana.lower() == "exit":
+                return False
 
-
-        if "exit" in (server_ip,kayttaja,salasana): #jos käyttäjä haluaa poistua
-            return False
 
 
         # yhteys
