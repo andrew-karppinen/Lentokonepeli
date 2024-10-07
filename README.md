@@ -10,9 +10,9 @@ Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/bl
 #### Alusta tietokanta:  documentation/tietokannan muokkaus.sql
 
 #### Relaatiomalli:
-![kuva](https://github.com/user-attachments/assets/7a8fd795-0b26-4005-8156-823302faddbc)
+![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/relaatiomalli.png)
 
 
 #### Er malli:
-![kuva](https://github.com/user-attachments/assets/c2a513e7-13de-44b9-9c8e-3c00ad8e26fe)
+![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/er%20malli.jpg)
 
