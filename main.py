@@ -70,7 +70,8 @@ def yhdista():
                 password=salasana,
                 autocommit=True)
         except mysql.connector.Error as err:  # virhe yhteyden muodostamisessa
-            print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err)
+            print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err,Style.RESET_ALL)
+            #nollataan väriasetukset
             continue
 
         else:
