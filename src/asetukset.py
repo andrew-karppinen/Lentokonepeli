@@ -58,5 +58,5 @@ def GetHomeConfigDirectory():
         return path
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": #testiohjemelma
     print(GetHomeConfigDirectory())

@@ -1,13 +1,14 @@
 import mysql.connector
+from async_timeout import timeout
 from colorama import init, Fore, Style
 init() #alustetaan colorama moduuli
 from src import * #importataan funktiot
 
 
 def tulosta_valikko():
-    print(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu")
+    print(Fore.LIGHTWHITE_EX + "\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Tyhjennä käyttäjätiedot\n4 = Tulost Säännöt \n5 = Poistu\n")
 
-def tulosta_säännöt():
+def tulosta_saannot():
     print("Pelin säännöt ovat seuraavat: ")
     print("\nPeliin voi osallistua 1-5 pelaajaa. Pelaajat valitsevat pelin alussa, missä maanosassa he pelaavat."
             "\nValinnan jälkeen pelaajalta pyydetään nimimerkki, jonka jälkeen peli alkaa. "
@@ -63,7 +64,7 @@ def yhdista():
                 password=salasana,
                 autocommit=True)
         except mysql.connector.Error as err:  # virhe yhteyden muodostamisessa
-            print("Virhe yhteyden muodostamisessa tietokantaan: ", err)
+            print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err)
             continue
 
         else:
@@ -85,10 +86,11 @@ if yhteys == False: #jos yhtyes
 while True: #pelin pääsilmukka
 
     while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
-        valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu\n4 = Pelinsäännöt\n").lower()
+        tulosta_valikko()
+        valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:").lower()
 
         if valinta == "4":
-            tulosta_säännöt()  # Tulostetaan säännöt
+            tulosta_saannot()  # Tulostetaan säännöt
             # Sääntöjen jälkeen palataan valikkoon (ilman toiminnon 4 esittämistä)
             tulosta_valikko()
             valinta = input(Fore.LIGHTWHITE_EX).lower()
@@ -99,8 +101,11 @@ while True: #pelin pääsilmukka
             tulosta_pelaajatiedot(yhteys)
             print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)  # tulostetaan väliviiva
 
-
         elif valinta == "3":
+            tyhjennä_tiedot(yhteys)
+
+
+        elif valinta == "5":
             yhteys.close() #suljetaan yhteys
             exit() #lopenetaan ohjelma
 
