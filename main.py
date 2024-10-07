@@ -68,7 +68,8 @@ def yhdista():
                 database='flight_game',
                 user=kayttaja,
                 password=salasana,
-                autocommit=True)
+                connection_timeout=5,
+            autocommit=True)
         except mysql.connector.Error as err:  # virhe yhteyden muodostamisessa
             print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err,Style.RESET_ALL)
             #nollataan väriasetukset
