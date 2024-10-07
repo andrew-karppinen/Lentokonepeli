@@ -7,7 +7,7 @@ Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/bl
 
 
 
-#### Alusta tietokanta:  documentation/tietokannan muokkaus.sql
+#### Alusta tietokanta:  [documentation/tietokannan muokkaus.sql](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/tietokannan%20muokkaus.sql)
 
 #### Relaatiomalli:
 ![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/relaatiomalli.png)
