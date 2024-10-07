@@ -111,8 +111,7 @@ while True: #pelin pääsilmukka
 
 
     #peliin:
-
-    while True:
+    while True: #kysytään maanosaa ja tarkistetaan syötteen oikeellisuus
         print("Valitse maanosa: NA, OC, AF, AN, EU, AS, SA")
 
         print("Valitse * jos haluat pelata kaikissa maanosissa.")
