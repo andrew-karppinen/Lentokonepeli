@@ -9,6 +9,7 @@ Asenna kirjastot:
 
 > pip install geopy
 
+> pip install colorama
 
 #### Alusta tietokanta:  [documentation/tietokannan muokkaus.sql](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/tietokannan%20muokkaus.sql)
 
