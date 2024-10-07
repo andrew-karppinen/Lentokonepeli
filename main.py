@@ -75,7 +75,7 @@ def yhdista():
 
         else:
             if lue_asetukset == False: #jos asetukset on luettu tiedostosta, ei kysytä uudestaan
-                if input("Yhteys muodostettu onnistuneesti, haluan tallentaa asetukset (k/e)").lower() == "k":
+                if input("Yhteys muodostettu onnistuneesti, haluan tallentaa asetukset (k/e): ").lower() == "k":
                     TallennaAsetukset(server_ip,kayttaja,salasana)
 
             return yhteys
