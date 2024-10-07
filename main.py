@@ -46,12 +46,18 @@ def yhdista():
         if lue_asetukset == False: #kysytään asetukset käyttäjältä
             print("Anna sql palvelimen tiedot, (exit = poistu)")
             server_ip = input("Anna serverin ip: ")
+
+            if server_ip.lower() == "exit":
+                return False
+
             kayttaja = input("Anna käyttäjätunnus: ")
+            if kayttaja.lower() == "exit":
+                return False
+
             salasana = input("Anna salasana: ")
+            if salasana.lower() == "exit":
+                return False
 
-
-        if "exit" in (server_ip,kayttaja,salasana): #jos käyttäjä haluaa poistua
-            return False
 
 
         # yhteys
@@ -62,14 +68,16 @@ def yhdista():
                 database='flight_game',
                 user=kayttaja,
                 password=salasana,
-                autocommit=True)
+                connection_timeout=5,
+            autocommit=True)
         except mysql.connector.Error as err:  # virhe yhteyden muodostamisessa
-            print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err)
+            print(Fore.RED + "Virhe yhteyden muodostamisessa tietokantaan: ", err,Style.RESET_ALL)
+            #nollataan väriasetukset
             continue
 
         else:
             if lue_asetukset == False: #jos asetukset on luettu tiedostosta, ei kysytä uudestaan
-                if input("Yhteys muodostettu onnistuneesti, haluan tallentaa asetukset (k/e)").lower() == "k":
+                if input("Yhteys muodostettu onnistuneesti, haluan tallentaa asetukset (k/e): ").lower() == "k":
                     TallennaAsetukset(server_ip,kayttaja,salasana)
 
             return yhteys
