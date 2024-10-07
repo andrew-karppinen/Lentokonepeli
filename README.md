@@ -16,3 +16,5 @@ Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/bl
 #### Er malli:
 ![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/er%20malli.jpg)
 
+Aja ohjelma:
+> python3 main.py
