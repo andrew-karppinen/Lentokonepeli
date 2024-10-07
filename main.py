@@ -1,10 +1,21 @@
 import mysql.connector
-
+from colorama import init, Fore, Style
+init() #alustetaan colorama moduuli
 from src import * #importataan funktiot
 
 
+def tulosta_valikko():
+    print(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu")
 
-
+def tulosta_säännöt():
+    print("Pelin säännöt ovat seuraavat: ")
+    print("\nPeliin voi osallistua 1-5 pelaajaa. Pelaajat valitsevat pelin alussa, missä maanosassa he pelaavat."
+            "\nValinnan jälkeen pelaajalta pyydetään nimimerkki, jonka jälkeen peli alkaa. "
+            "\nPeli koostuu viidestä kierroksesta. Jokaisella kierroksella pelaajalle annetaan lentokenttä jostakin. "
+            "\nmaasta, ja hänen tehtävänään on arvata, missä maassa kyseinen lentokenttä sijaitsee. Pelaajalla on"
+            "\nviisi arvauskertaa per kierros, ja jokaisesta väärästä arvauksesta vähennetään yksi piste. "
+            "\nJos pelaaja arvaa oikein ensimmäisellä yrityksellä, hän saa täydet 5 pistettä."
+            "\nMaksimipistemäärä on 5 pistettä per kierros, eli yhteensä 25 pistettä kaikista viidestä kierroksesta.\n")
 
 
 def yhdista():
@@ -71,85 +82,117 @@ if yhteys == False: #jos yhtyes
     exit()
 
 
+while True: #pelin pääsilmukka
+
+    while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
+        valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Poistu\n4 = Pelinsäännöt\n5 = Poista tallennetut tiedot\n").lower()
+
+        if valinta == "4":
+            tulosta_säännöt()  # Tulostetaan säännöt
+            # Sääntöjen jälkeen palataan valikkoon (ilman toiminnon 4 esittämistä)
+            tulosta_valikko()
+            valinta = input(Fore.LIGHTWHITE_EX).lower()
+        if valinta == "1":
+            break
+        elif valinta == "2":
+            print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)  # tulostetaan väliviiva
+            tulosta_pelaajatiedot(yhteys)
+            print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET)  # tulostetaan väliviiva
 
 
-valinta = input("valitse toiminto:\n1 = uusi peli\n2 = tulosta käyttäjien pistetilastot\n3 = poistu\n").lower()
+        elif valinta == "3":
+            yhteys.close() #suljetaan yhteys
+            exit() #lopenetaan ohjelma
+
+        elif valinta == "5":
+            tyhjennä_tiedot(yhteys)
+
+    #peliin:
+
+    while True:
+        print("Valitse maanosa: NA, OC, AF, AN, EU, AS, SA")
+
+        print("Valitse * jos haluat pelata kaikissa maanosissa.")
+
+        maanosa = input("Valinta: ").upper()
+        if maanosa in ["NA", "OC", "AF", "AN", "EU", "AS", "SA", "*"]:
+            break
+
+    pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
 
 
-if valinta == "2":
-    tulosta_pelaajatiedot(yhteys)
-    exit()
-elif valinta == "3":
-    exit()
+    while True: #kysytään käyttäjältä pelaajien määrä ja tarkistetaan syötteen oikeellisuus
+        pelaajien_maara = input("Anna pelaajien määrä: (1-5): ") #ei tee tällä hetkellä mitään
 
-
-
-
-#peliin:
-
-print("Maanosat: " + ", ".join(maanosakoodit(yhteys)))
-
-print("Pelaa kaikissa maanosissa: * ")
-print("Tai anna jokin maanosa")
-
-maanosa = input("Valinta: ").upper()
-
-
-pelin_tiedot = PelinTiedot(maanosa) #luodaan pelin tiedot olio
-
-
-pelaajien_maara = int(input("Anna pelaajien määrä: (1-5): ")) #ei tee tällä hetkellä mitään
-
-for i in range(pelaajien_maara):
-
-    nimimerkki = input("Anna nimimerkki: ")
-
-    pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
-
-
-
-    for j in range(0,5): #pelaaja pelaa 5 kierrosta
-
-
-        print("############")
-        print("Kierros: ", j+1)
-        kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
-        print(kohdelentokentta)
-
-        pisteet = 5 #pelaajan pisteet
-
-        while True: #peli silmukka
-
-            if pisteet == 0:
-                break
-
-            arvaus = input("Arvaa maa jossa lentokenttä sijaitsee: ")
-
-            if arvaus.lower() == kohdemaa.lower():
-                print("Arvauksesi oli oikein!")
-                break
+        if pelaajien_maara.isdigit() == False: #virheellinen syöte
+            print("Virheellinen syöte")
+            continue
+        else:
+            pelaajien_maara = int(pelaajien_maara)
+            if pelaajien_maara < 1 or pelaajien_maara > 5:
+                print("Virheellinen syöte")
+                continue
             else:
-                etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
-                if etaisyys == False: #jos maata ei löydy
-                    maat = hae_maat(yhteys)
-                    print("Tarkoititko: ", tarkistamaa(maat,arvaus))
+                break
+
+
+    for i in range(pelaajien_maara):
+
+        while True: #kysytään pelaajan nimimerkkiä ja tarkistetaan onko se jo annettu toiselle pelaajalle tässä pelissä
+            nimimerkki = input("Anna nimimerkki: ")
+            if nimimerkki in pelin_tiedot.pelaajat_:
+                print(Fore.RED + "❌ Nimimerkki on jo käytössä")
+            else:
+                break
+
+
+        pelin_tiedot.pelaajat_[nimimerkki] = 0 #lisätään pelaaja tiedot olioon
+
+        for i in range(0,5): #pelaaja pelaa 5 kierrosta
+
+
+            print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
+            print(Fore.LIGHTWHITE_EX + "Kierros: ", i+1)
+            print()
+            kohdelentokentta,kohdemaa,maanosa = arpominen(yhteys, maanosa) #arvotaan maa ja lentokenttä
+            print(kohdelentokentta)
+
+            pisteet = 5 #pelaajan pisteet
+            arvaus = input(Fore.LIGHTWHITE_EX + "Arvaa maa jossa lentokenttä sijaitsee: ")
+
+            while True: #peli silmukka
+
+                if pisteet == 1:
+                    pisteet = 0
+                    break
+
+                if arvaus.lower() == kohdemaa.lower():
+                    print(Fore.GREEN + "✅ Arvauksesi oli oikein!" + Fore.RESET)
+                    break
                 else:
-                    print(f"Väärin, etäisyys: {etaisyys:.0f} km")
+                    etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta,arvaus)
+                    if etaisyys == False: #jos maata ei löydy
+                        maat = hae_maat(yhteys)
+                        print(Fore.RED + f"Maata nimellä " + arvaus + " ei löytynyt tai sillä ei ole lentokenttiä." + Style.RESET_ALL)
+                        print(Fore.LIGHTWHITE_EX + "Tarkoititko: ", tarkistamaa(maat,arvaus))
+                        print("Arvaa uudelleen:", end=' ')
+                    else:
+                        print(Fore.RED + f"❌ Väärin, etäisyys: {etaisyys:.0f} km" + Fore.RESET)
+                        print(Fore.LIGHTWHITE_EX + "Arvaa uudelleen:", end=' ')
+                    arvaus = input()  # Odotetaan pelaajan uutta arvausta
 
-            pisteet -= 1
+                pisteet -= 1
 
-        print("Maa oli: ", kohdemaa)
-        print("Pisteet kierroksesta: ", pisteet)
-        pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
-
-
-
-pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
-
-pelin_tiedot.tulosta_taman_pelin_tiedot() #tulostetaan pelin tiedot
-
-yhteys.close() #suljetaan tietokantayhteys
+            print(Fore.LIGHTWHITE_EX + "Maa oli: ", kohdemaa)
+            print("Pisteet kierroksesta: ", pisteet)
+            pelin_tiedot.pelaajat_[nimimerkki] += pisteet #päivitetään pelaajan pisteet pelin tiedot olioon
 
 
+    print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
+
+    pelin_tiedot.tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot tietokantaan
+
+    pelin_tiedot.tulosta_tiedot() #tulostetaan pelin tiedot
 
 
+    print(Fore.LIGHTBLUE_EX + "--------------------------------------------------------" + Fore.RESET) #tulostetaan väliviiva
