@@ -1,5 +1,4 @@
 import mysql.connector
-from async_timeout import timeout
 from colorama import init, Fore, Style
 init() #alustetaan colorama moduuli
 from src import * #importataan funktiot
