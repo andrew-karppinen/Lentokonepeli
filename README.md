@@ -1,8 +1,14 @@
 Lentokenttä peli
 
+#### Projekti 1
+https://github.com/vesavvo/Python_Ohjelmistoteema/blob/main/Projektity%C3%B6/01_Esiprojektin_toimeksianto.md
 
-Tämän projektin toteutus: https://github.com/vesavvo/Python_Ohjelmistoteema/blob/main/Projektity%C3%B6/01_Esiprojektin_toimeksianto.md
+tästä löytyy tagi "konsolipohjainen_versio": https://github.com/andrew-karppinen/Lentokonepeli/releases/tag/konsolipohjainen_versio
 
+Siitä edespäin tämän projektin toteutus:
+
+#### Projekti 2
+https://github.com/vesavvo/Python_Ohjelmistoteema/blob/main/Projektity%C3%B6/02_Projektity%C3%B6n_toimeksianto.md
 
 Asenna kirjastot:
 > pip install mysql-connector-python
