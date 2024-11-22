@@ -7,6 +7,8 @@
 
 # API
 
+endpoint: /api/
+
 
 ### /getcontinents/
 
