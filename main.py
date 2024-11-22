@@ -5,7 +5,7 @@ from src import * #importataan funktiot
 
 
 def tulosta_valikko():
-    print(Fore.LIGHTWHITE_EX + "\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Tyhjennä käyttäjätiedot\n4 = Tulost Säännöt \n5 = Poistu\n")
+    print(Fore.LIGHTWHITE_EX + "\n1 = Uusi peli\n2 = Tulosta käyttäjien pistetilastot\n3 = Tyhjennä käyttäjätiedot\n4 = Tulosta Säännöt \n5 = Poistu\n")
 
 def tulosta_saannot():
     print("Pelin säännöt ovat seuraavat: ")
@@ -94,7 +94,7 @@ while True: #pelin pääsilmukka
 
     while True: #valikko, pyörii kunnes käyttäjä antaa oikenlasen syötteen
         tulosta_valikko()
-        valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto:").lower()
+        valinta = input(Fore.LIGHTWHITE_EX + "Valitse toiminto: ").lower()
 
         if valinta == "4":
             tulosta_saannot()  # Tulostetaan säännöt

@@ -1,7 +1,0 @@
-Komennot oikeuksien antamiseen
-
-Vaihtakaa suluissa oleva osa omaksi käyttäjäksi MariaDB:ssä
-
-GRANT DROP ON flight_game.game TO ('jani'@'localhost');
-GRANT DROP ON flight_game.user_games TO ('jani'@'localhost');
-GRANT DROP ON flight_game.user_information TO ('jani'@'localhost');
