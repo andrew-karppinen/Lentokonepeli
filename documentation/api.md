@@ -56,13 +56,13 @@ Palauttaa:
     "players":[
         [
             "name":"Pelaaja1",
-            "ranking": 100,
+            "ranking": 7,
             "victories": 10,
             "total_games": 20
         ],
         [
             "name":"Pelaaja2",
-            "ranking": 200
+            "ranking": 4,
             "victories": 5,
             "total_games": 10
         ]
@@ -109,12 +109,12 @@ Palauttaa:
         [
             "name":"Pelaaja1",
             "airport":1, //airport 1/5            
-            "score": 100
+            "score": 7 //0-25
         ],
         [
             "name":"Pelaaja2",
             "airport":2, //airport 2/5
-            "score": 200
+            "score": 21
         ]
     ]
 }`
@@ -131,12 +131,12 @@ Parametrit:
         [
             "name":"Pelaaja1",
             "airport":1,            
-            "score": 100
+            "score": 25 //0-25
         ],
         [
             "name":"Pelaaja2",
             "airport":2,
-            "score": 200
+            "score": 20
         ]
     ]
 }`
