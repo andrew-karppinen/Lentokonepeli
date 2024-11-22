@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import mysql.connector
 
 from backend.src.maanosakoodit import maanosakoodit
@@ -17,6 +17,12 @@ yhteys = mysql.connector.connect(
 
 
 app = Flask(__name__)
+
+
+
+@app.route('/')
+def index():
+    return render_template('etusivu.html')
 
 
 @app.route('/api/getcontinents', methods=['get'])
@@ -52,11 +58,11 @@ def new_game():
 
 
 
-@app.route('/api/get-saved-game', methods=['GET']):
+@app.route('/api/get-saved-game', methods=['GET'])
 def get_saved_game():
     pass
 
-@app.route('/api/save-game', methods=['POST']):
+@app.route('/api/save-game', methods=['POST'])
 def save_game():
     pass
 
