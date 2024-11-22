@@ -56,7 +56,7 @@ Palauttaa:
     "players":[
         [
             "name":"Pelaaja1",
-            "ranking": 7,
+            "ranking": 7, // keskiarvo pelaajan pisteistä 0-25
             "victories": 10,
             "total_games": 20
         ],
