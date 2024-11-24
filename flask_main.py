@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
 
-from src.maanosakoodit import maanosakoodit
+from src.maanosakoodit import *
 from src import *
 
 #luodaan sql yhteys
@@ -35,7 +35,8 @@ def get_continents():
     '''
     Palauttaa maanosakoodit
     '''
-    koodit = maanosakoodit(yhteys)  #hakee maanosakoodit listaan
+
+    koodit = ["NA", "OC", "AF", "AN", "EU", "AS", "SA", "*"] #maanosakoodit
 
     vastaus = {
         "continents": koodit
