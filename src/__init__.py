@@ -9,3 +9,4 @@ from src.clear_console import clear_console
 
 from src.asetukset import *
 
+from src.hae_maat import hae_maat

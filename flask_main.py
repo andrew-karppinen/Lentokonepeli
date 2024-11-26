@@ -26,9 +26,21 @@ def index():
 
 
 
-
-
 ####api:
+
+
+@app.route('/api/calculate_distance', methods=['get'])
+def calculate_distance():
+    '''
+    Laskee kahden lentokentän välisen etäisyyden
+    '''
+
+    latitude_deg = request.args.get('latitude_deg')
+    longitude_deg = request.args.get('longitude_deg')
+    airport_name = request.args.get('airport_name')
+
+
+
 
 @app.route('/api/getcontinents', methods=['get'])
 def get_continents():
@@ -49,9 +61,38 @@ def get_countries():
     '''
     Palauttaa maanosan maat
     '''
-    pass
+
+    continent = request.args.get('continent')
+
+    if continent == None or continent == "": #ei annettua maanosaa
+        continent = "*"
+
+    maat = hae_maat(yhteys,continent) #haetaan maat tietokannasta
+    vastaus = {
+        "countries": maat
+    }
+    return jsonify(vastaus)
 
 
+@app.route('/api/getairport', methods=['GET'])
+def get_airport():
+    '''
+    Palauttaa satunnaisen lentokentän
+    '''
+
+    continent = request.args.get('continent')
+    country = request.args.get('country')
+
+    if continent == None or continent == "": #ei annettua maanosaa
+        continent = "*"
+    if country == None or country == "": #ei annettua maata
+        country = "*"
+
+    lentokentta = arpominen(yhteys,continent,country) #haetaan lentokenttä tietokannasta
+    vastaus = {
+        "airport": lentokentta
+    }
+    return jsonify(vastaus)
 
 @app.route('/api/get-user-scores', methods=['GET'])
 def get_user_scores():

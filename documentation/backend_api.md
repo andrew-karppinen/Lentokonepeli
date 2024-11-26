@@ -15,7 +15,7 @@ endpoint: /api/
 palauttaa
     
 `{
-    "continents": ["Europe", "Asia", "Africa","jne"]
+    "continents": ["EU", "NA", "SA", "AF", "AS", "OC"] //jne
 }`
 
 
@@ -25,7 +25,7 @@ palauttaa
 Parametrit:
 
 `{
-    "continent": "Europe"
+    "continent": "Europe" //valinnainen
 }`
 
 Palauttaa:
@@ -45,6 +45,17 @@ Parametrit:
     "country": "Finland"
 }`
 
+Palauttaa:
+
+`{
+    "airport":{
+        "airport_name": "Helsinki-Vantaa",
+        "country": "Finland",
+        "continent": "Europe",
+        "latitude_deg": 60.3172,
+        "longitude_deg": 24.9633 
+    }
+}`
 
 
 
@@ -56,18 +67,18 @@ Palauttaa:
 
 `{
     "players":[
-        [
+        {
             "name":"Pelaaja1",
             "ranking": 7, // keskiarvo pelaajan pisteistä 0-25
             "victories": 10,
             "total_games": 20
-        ],
-        [
+        },
+        {
             "name":"Pelaaja2",
             "ranking": 4,
             "victories": 5,
             "total_games": 10
-        ]
+        }
     ]
 }`
 
@@ -75,6 +86,8 @@ Palauttaa:
 
 
 ### /new-game/
+
+Pyyhkii mahdollisen keskeneräisen pelin ja luo uuden pelin
 
 Parametrit:
 
@@ -110,12 +123,12 @@ Palauttaa:
     "players":[
         [
             "name":"Pelaaja1",
-            "airport":1, //airport 1/5            
-            "score": 7 //0-25
+            "airport":1,          
+            "score": 7 
         ],
         [
             "name":"Pelaaja2",
-            "airport":2, //airport 2/5
+            "airport":2, 
             "score": 21
         ]
     ]
@@ -128,12 +141,11 @@ Tallenna taustapalvelimelle keskeneräisen pelin tiedot
 Parametrit:
 
 `{
-    "game_id": 1,
     "players":[
         [
             "name":"Pelaaja1",
-            "airport":1,            
-            "score": 25 //0-25
+            "airport":1,           
+            "score": 25 
         ],
         [
             "name":"Pelaaja2",
@@ -144,4 +156,7 @@ Parametrit:
 }`
 
 
+airport on numero joka on 0-5,
+jos esim 3 pelaaja on pelannut 3 lentokenttää ja 2 on jäljellä
 
+jos kaikkien pelaajien airport numero on 5 taustapalvelu tulkitsee pelin päättyneeksi

@@ -2,22 +2,38 @@
 import mysql.connector
 
 
-def arpominen(yhteys,maanosa:str="*"):
+def arpominen(yhteys,maanosa:str="*",maa:str="*"):
     '''
     Funktio arpoo lentokentän nimen, maan nimen sille annetun mantereen mukaan.
     Hakutulosta voi rajata maanoasan mukaan tai hakea kaikista maanosista
     '''
-    if maanosa=="*": #haetaan kaikista maanosista
-        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
-    else:
-        randomaus = f"SELECT airport.name, country.name, country.continent FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
+
+
+    if maa == "*": #ei rajattu maan mukaan
+        if maanosa=="*": #haetaan kaikista maanosista
+            randomaus = f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
+        else:
+            randomaus = f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
+
+    else: #haetaan tietystä maasta
+        randomaus =f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.iso_country = '{maa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
 
 
     kursori = yhteys.cursor()
     kursori.execute(randomaus)
     tulos = kursori.fetchone()
-    return tulos
 
+    if tulos == None:
+        return None
+    else:
+        tulos = {
+            "airport": tulos[0],
+            "country": tulos[1],
+            "continent": tulos[2],
+            "latitude_deg": tulos[3],
+            "longitude_deg": tulos[4]
+        }
+        return tulos
 
 
 if __name__ == '__main__': #testiohjelma
@@ -36,4 +52,4 @@ if __name__ == '__main__': #testiohjelma
 
 
     else: #yhteys muodostettu onnistuneesti
-        print(arpominen(yhteys,"EU"))
+        print(arpominen(yhteys,"","US"))
