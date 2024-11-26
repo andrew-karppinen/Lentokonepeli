@@ -1,6 +1,8 @@
 
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
+from jsonschema import validate, ValidationError
+
 
 from src.maanosakoodit import *
 from src import *
@@ -118,8 +120,28 @@ def get_saved_game():
 
 @app.route('/api/save-game', methods=['POST'])
 def save_game():
-    pass
+    gamedata = request.json.get('gamedata')
 
+    if gamedata == None:
+        return jsonify({"error": "Missing parameters"})
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "continent": {"type": ["string", "null"]},
+            "country": {"type": ["string", "null"]}
+        },
+        "required": ["continent", "country"],
+        "additionalProperties": False
+    }
+
+    try:
+        validate(instance=gamedata, schema=schema) #tarkistetaan parametrinä saadun datan oikeellisuus
+    except ValidationError as e:
+        return jsonify({"error": "Invalid parameters"})
+
+    uusi_peli(yhteys, gamedata)
+    return jsonify({"status": "success"})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
