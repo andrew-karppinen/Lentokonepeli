@@ -14,9 +14,13 @@ def laske_etaisyys(sijainti1: tuple, sijainti2: tuple) -> float:
     etaisyys = geodesic(sijainti1, sijainti2).kilometers
     return etaisyys
 
-def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
+def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
     '''
     Funktio, joka laskee annetun lentokentän ja annetun sijainnin välisen etäisyyden
+
+    sijainti = latitude_deg, longitude_deg
+    palauttaa etäisyyden kilometreinä
+
     '''
     try:
         kursori = yhteys.cursor()
@@ -27,13 +31,18 @@ def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, sijanti
         kursori.execute(komento)
         tulos = kursori.fetchone()
 
-        lentokentan_sijainti = (tulos[0], tulos[1])
-        etaisyys = laske_etaisyys(sijanti, lentokentan_sijainti)
+
 
         if not tulos:
             print(f"Lentokenttää nimellä {kohdelentokentta_nimi} ei löytynyt.")
             return False
 
+        try:
+            lentokentan_sijainti = (tulos[0], tulos[1])
+            etaisyys = laske_etaisyys(sijanti, lentokentan_sijainti)
+        except:
+            print("Virhe laskiessa etäisyyttä")
+            return False
 
 
         #palautetaan etäisyys
@@ -60,7 +69,7 @@ if __name__ == "__main__":
 
     yhteys = liity_tietokantaan()
     sijainti = (30.3565, -95.008003)
-    etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta_nimi, sijainti)
+    etaisyys = hae_etaisyys(yhteys, kohdelentokentta_nimi, sijainti)
 
     print(etaisyys)
 
