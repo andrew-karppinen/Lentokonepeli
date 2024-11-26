@@ -26,9 +26,21 @@ def index():
 
 
 
-
-
 ####api:
+
+
+@app.route('/api/calculate_distance', methods=['get'])
+def calculate_distance():
+    '''
+    Laskee kahden lentokentän välisen etäisyyden
+    '''
+
+    latitude_deg = request.args.get('latitude_deg')
+    longitude_deg = request.args.get('longitude_deg')
+    airport_name = request.args.get('airport_name')
+
+
+
 
 @app.route('/api/getcontinents', methods=['get'])
 def get_continents():
