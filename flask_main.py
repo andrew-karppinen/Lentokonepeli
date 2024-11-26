@@ -39,8 +39,15 @@ def calculate_distance():
     longitude_deg = request.args.get('longitude_deg')
     airport_name = request.args.get('airport_name')
 
+    if latitude_deg == None or latitude_deg == "" or longitude_deg == None or longitude_deg == "" or airport_name == None or airport_name == "":
+        return jsonify({"error": "Missing parameters"})
 
+    sijainti = (latitude_deg, longitude_deg)
+    etaisyys = hae_etaisyys(yhteys, airport_name, sijainti) #haetaan etäisyys tietokannasta
+    if etaisyys == False:
+        return jsonify({"error": "Airport not found"})
 
+    return jsonify({"distance": etaisyys})
 
 @app.route('/api/getcontinents', methods=['get'])
 def get_continents():
