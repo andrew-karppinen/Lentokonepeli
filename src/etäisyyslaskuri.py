@@ -19,7 +19,7 @@ def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
     Funktio, joka laskee annetun lentokentän ja annetun sijainnin välisen etäisyyden
 
     sijainti = latitude_deg, longitude_deg
-    palauttaa etäisyyden kilometreinä
+    palauttaa etäisyyden kilometreinä ja kohdelentokentän sijainnin
 
     '''
     try:
@@ -35,18 +35,18 @@ def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
 
         if not tulos:
             print(f"Lentokenttää nimellä {kohdelentokentta_nimi} ei löytynyt.")
-            return False
+            return False,[]
 
         try:
             lentokentan_sijainti = (tulos[0], tulos[1])
             etaisyys = laske_etaisyys(sijanti, lentokentan_sijainti)
         except:
             print("Virhe laskiessa etäisyyttä")
-            return False
+            return False,[]
 
 
         #palautetaan etäisyys
-        return  etaisyys
+        return  etaisyys, lentokentan_sijainti
 
     except mysql.connector.Error as err:
         print(err)

@@ -45,11 +45,11 @@ def calculate_distance():
         return jsonify({"error": "Missing parameters"})
 
     sijainti = (latitude_deg, longitude_deg)
-    etaisyys = hae_etaisyys(yhteys, airport_name, sijainti) #haetaan etäisyys tietokannasta
+    etaisyys,sijanti = hae_etaisyys(yhteys, airport_name, sijainti) #haetaan etäisyys tietokannasta
     if etaisyys == False:
         return jsonify({"error": "Airport not found"})
 
-    return jsonify({"distance": etaisyys})
+    return jsonify({"distance": etaisyys,"airport_location": sijanti})
 
 @app.route('/api/getcontinents', methods=['get'])
 def get_continents():
@@ -87,6 +87,7 @@ def get_countries():
 def get_airport():
     '''
     Palauttaa satunnaisen lentokentän
+    annettujen parametrien mukaan
     '''
 
     continent = request.args.get('continent')
@@ -105,12 +106,10 @@ def get_airport():
 
 @app.route('/api/get-user-scores', methods=['GET'])
 def get_user_scores():
-    pass
+
+    return jsonify(hae_pelaajatiedot(yhteys))
 
 
-@app.route('/api/new-game', methods=['POST'])
-def new_game():
-    pass
 
 
 
