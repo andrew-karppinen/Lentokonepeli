@@ -37,4 +37,22 @@ CREATE TABLE user_games (
 
 
 
+-- luodaan taulu game_temp
+
+CREATE TABLE game_temp (
+    continent VARCHAR(255),
+    country VARCHAR(255)
+);
+
+--luodaan taulu user_temp
+
+CREATE TABLE user_temp (
+    name VARCHAR(255),
+    airport_counter INT,
+    user_points INT
+);
+
+
+
+
 SET FOREIGN_KEY_CHECKS = 1; -- vierasavainten tarkistukset takaisin päälle
