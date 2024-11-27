@@ -114,7 +114,6 @@ jos ei ole tietoja palauttaa tyhjän sanakirjan
 Palauttaa:
 
 `{
-    "game_id": 1,
     "continent": "Europe",
     "country": "Finland",
     "players":[
