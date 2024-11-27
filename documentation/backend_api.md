@@ -9,6 +9,10 @@
 
 endpoint: /api/
 
+Huomaa että mahdollisissa url parametreissä olevat välilöyt korvattava erikoismerkillä %20
+
+javascriptissä on funktio encodeURIComponent() joka hoitaa tämän automaattisesti
+
 
 ### /getcontinents/
 Menetelmä: GET
