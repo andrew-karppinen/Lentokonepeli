@@ -2,45 +2,54 @@ import mysql.connector
 import random
 from geopy.distance import geodesic
 
+
+
 # Funktio etäisyyden laskemiseen geopy-kirjaston avulla
 def laske_etaisyys(sijainti1: tuple, sijainti2: tuple) -> float:
+    '''
+    sijainti = latitude_deg, longitude_deg
+    palauttaa etäisyyden kilometreinä
+    '''
+
     etaisyys = geodesic(sijainti1, sijainti2).kilometers
     return etaisyys
 
-# Funktio, joka hakee satunnaisen lentokentän annetusta maasta ja laskee etäisyyden
-def hae_etaisyys_lentokentta(yhteys: object, kohdelentokentta_nimi: str, arvattu_maa: str):
+def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
+    '''
+    Funktio, joka laskee annetun lentokentän ja annetun sijainnin välisen etäisyyden
+
+    sijainti = latitude_deg, longitude_deg
+    palauttaa etäisyyden kilometreinä ja kohdelentokentän sijainnin
+
+    '''
     try:
         kursori = yhteys.cursor()
 
         # Hae kohdelentokentän tiedot (leveys- ja pituusaste) lentokentän nimen perusteella
-        kohde_query = """SELECT latitude_deg, longitude_deg, iso_country FROM airport WHERE name = %s"""
-        kursori.execute(kohde_query, (kohdelentokentta_nimi,))
-        kohde_tulos = kursori.fetchone()
+        komento = f"""SELECT latitude_deg, longitude_deg FROM airport WHERE name = '{kohdelentokentta_nimi}';"""
+        print(komento)
+        kursori.execute(komento)
+        tulos = kursori.fetchone()
 
-        if not kohde_tulos:
+
+
+        if not tulos:
             print(f"Lentokenttää nimellä {kohdelentokentta_nimi} ei löytynyt.")
-            return False
+            return False,[]
 
-        kohde_lat, kohde_lon, oikea_maa = kohde_tulos  # Kohdelentokentän koordinaatit ja oikea maan koodi
+        try:
+            lentokentan_sijainti = (tulos[0], tulos[1])
+            etaisyys = laske_etaisyys(sijanti, lentokentan_sijainti)
+        except:
+            print("Virhe laskiessa etäisyyttä")
+            return False,[]
 
-        # Hae kaikki lentokentät arvatussa maassa
-        maa_query = f'SELECT airport.latitude_deg, airport.longitude_deg FROM airport,country where airport.iso_country = country.iso_country and country.name = "{arvattu_maa}"'
-        kursori.execute(maa_query)
-        arvattu_maa_lentokentat = kursori.fetchall()
-        if not arvattu_maa_lentokentat:
-            return False
-
-        # Valitaan satunnainen lentokenttä kyseisestä maasta
-        satunnainen_lentokentta = random.choice(arvattu_maa_lentokentat)
-        kentan_lat, kentan_lon = satunnainen_lentokentta
-
-        # Lasketaan etäisyys kohdelentokentän ja satunnaisesti valitun lentokentän välillä
-        etaisyys = laske_etaisyys((kohde_lat, kohde_lon), (kentan_lat, kentan_lon))
 
         #palautetaan etäisyys
-        return  etaisyys
+        return  etaisyys, lentokentan_sijainti
 
     except mysql.connector.Error as err:
+        print(err)
         return False
 
 # Yhteys MySQL-tietokantaan
@@ -57,11 +66,10 @@ def liity_tietokantaan():
 if __name__ == "__main__":
     # Kysytään käyttäjältä lentokentän nimi ja arvottu maan koodi
     kohdelentokentta_nimi = "Cleveland Municipal Airport "
-    arvottu_maa = input("Anna arvotun maan koodi (esim. Finland): ")
 
     yhteys = liity_tietokantaan()
-
-    etaisyys = hae_etaisyys_lentokentta(yhteys,kohdelentokentta_nimi, arvottu_maa)
+    sijainti = (30.3565, -95.008003)
+    etaisyys = hae_etaisyys(yhteys, kohdelentokentta_nimi, sijainti)
 
     print(etaisyys)
 
