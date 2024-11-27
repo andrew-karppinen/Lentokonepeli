@@ -14,11 +14,12 @@ endpoint: /api/
 Menetelmä: GET
 
 palauttaa tiedot json muodossa:
-    
-`{
-    "continents": ["EU", "NA", "SA", "AF", "AS", "OC"]
-}`
 
+```    
+{
+    "continents": ["EU", "NA", "SA", "AF", "AS", "OC"]
+}
+```
 
 ### /getcountries/
 Menetelmä: GET
@@ -29,10 +30,11 @@ valinnainen url parametri: continent: "EU"
 
 Palauttaa:
 
-`{
+```
+{
     "countries": ["Finland", "Sweden", "Norway"]
-}`
-
+}
+```
 
 
 ### /getairport/
@@ -41,13 +43,15 @@ Menetelmä: GET
 Parametrit:
 
 2kpl valinnaisia url parametreja: 
+
 "continent": "Europe",
 "country": "Finland"
 
 
 Palauttaa:
 
-`{
+```
+{
     "airport":{
         "airport_name": "Helsinki-Vantaa",
         "country": "Finland",
@@ -55,8 +59,8 @@ Palauttaa:
         "latitude_deg": 60.3172,
         "longitude_deg": 24.9633 
     }
-}`
-
+}
+```
 
 
 
@@ -67,7 +71,8 @@ Menetelmä: GET
 Palauttaa pelaajien tietoja pelatuista peleistä:
 huom ei liity keskeneräiseen peliin vaan aikaisempiin peleihin!
 
-`{
+```
+{
     "players":[
         {
             "name":"Pelaaja1",
@@ -82,7 +87,8 @@ huom ei liity keskeneräiseen peliin vaan aikaisempiin peleihin!
             "total_games": 10
         }
     ]
-}`
+}
+```
 
 huomaa että lista voi olla tyhjä jos pelaajia ei ole
 
@@ -94,14 +100,16 @@ Menetelmä: POST
 
 Parametrit:
 
-`{
+```
+{
     "continent": "Europe",
     "country": "Finland",
     "players":[
         "Pelaaja1",
         "Pelaaja2"
     ]
-}`
+}
+```
 
 ### /get-saved-game/
 Menetelmä: GET
@@ -112,8 +120,8 @@ jos ei ole tietoja palauttaa tyhjän sanakirjan
 "players" kohta voi myös olla tyhjä jos pelin tietoja ei ole tallennettu vielä
 
 Palauttaa:
-
-`{
+```
+{
     "continent": "Europe",
     "country": "Finland",
     "players":[
@@ -128,8 +136,8 @@ Palauttaa:
             "score": 21
         ]
     ]
-}`
-
+}
+```
 
 
 
@@ -140,7 +148,8 @@ Tallenna taustapalvelimelle keskeneräisen pelin tiedot
 
 Parametrit:
 
-`{
+```
+{
     "players":[
         [
             "name":"Pelaaja1",
@@ -153,8 +162,8 @@ Parametrit:
             "score": 20
         ]
     ]
-}`
-
+}
+```
 
 airport on numero joka on 0-5,
 jos esim 3 pelaaja on pelannut 3 lentokenttää ja 2 on jäljellä
