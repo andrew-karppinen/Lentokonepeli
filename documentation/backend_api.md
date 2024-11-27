@@ -11,22 +11,21 @@ endpoint: /api/
 
 
 ### /getcontinents/
+Menetelmä: GET
 
-palauttaa
+palauttaa tiedot json muodossa:
     
 `{
-    "continents": ["EU", "NA", "SA", "AF", "AS", "OC"] //jne
+    "continents": ["EU", "NA", "SA", "AF", "AS", "OC"]
 }`
-
 
 
 ### /getcountries/
+Menetelmä: GET
 
 Parametrit:
 
-`{
-    "continent": "Europe" //valinnainen
-}`
+valinnainen url parametri: continent: "EU"
 
 Palauttaa:
 
@@ -37,13 +36,14 @@ Palauttaa:
 
 
 ### /getairport/
+Menetelmä: GET
 
 Parametrit:
 
-`{
-    "continent": "Europe",
-    "country": "Finland"
-}`
+2kpl valinnaisia url parametreja: 
+"continent": "Europe",
+"country": "Finland"
+
 
 Palauttaa:
 
@@ -62,8 +62,10 @@ Palauttaa:
 
 
 ### /get-user-scores/
+Menetelmä: GET
 
-Palauttaa:
+Palauttaa pelaajien tietoja pelatuista peleistä:
+huom ei liity keskeneräiseen peliin vaan aikaisempiin peleihin!
 
 `{
     "players":[
@@ -82,12 +84,13 @@ Palauttaa:
     ]
 }`
 
-
+huomaa että lista voi olla tyhjä jos pelaajia ei ole
 
 
 ### /new-game/
+Luo uuden-pelin ja poistaa vanhan pelin tiedot
+Menetelmä: POST
 
-Pyyhkii mahdollisen keskeneräisen pelin ja luo uuden pelin
 
 Parametrit:
 
@@ -100,19 +103,13 @@ Parametrit:
     ]
 }`
 
-Palauttaa:
-Onnistuessaan:
-
-`
-{
-    "game_id": 1
-}
-`
-
-
 ### /get-saved-game/
+Menetelmä: GET
 
 Hae taustapalvelimelta keskeneräisen pelin tiedot
+jos ei ole tietoja palauttaa tyhjän sanakirjan
+
+"players" kohta voi myös olla tyhjä jos pelin tietoja ei ole tallennettu vielä
 
 Palauttaa:
 
@@ -134,7 +131,11 @@ Palauttaa:
     ]
 }`
 
+
+
+
 ### /save-game/
+Menetelmä: POST
 
 Tallenna taustapalvelimelle keskeneräisen pelin tiedot
 
@@ -159,4 +160,5 @@ Parametrit:
 airport on numero joka on 0-5,
 jos esim 3 pelaaja on pelannut 3 lentokenttää ja 2 on jäljellä
 
-jos kaikkien pelaajien airport numero on 5 taustapalvelu tulkitsee pelin päättyneeksi
+jos kaikkien pelaajien airport numero on 5 taustapalvelu tulkitsee pelin päättyneeksi ( Toiminto kesken!)
+ja tallentaa pelin tiedot automaattisesti pysvästi ( Toiminto kesken!)
