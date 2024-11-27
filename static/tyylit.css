@@ -1,0 +1,84 @@
+/*etusivun ja pelisivun tyyli alkaa*/
+/* Yleiset tyylit */
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Taustan väri ja tekstin asettelu*/
+body {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Pääotsikon (Airport Quest) tyyli*/
+.main-title-container {
+    position: relative;
+    top: -60px;
+    z-index: 1;
+}
+
+.main-title {
+    font-size: 3rem;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Päävalikon kontaineri */
+.menu-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+
+/* Nappien säiliö */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom:30px
+}
+
+/* Nappien tyyli */
+.menu-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 80%;
+    max-width: 300px;
+}
+
+.menu-button:hover {
+    background-color: #45a049;
+}
+
+.menu-button:active {
+    background-color: #3e8e41;
+}
+/*etusivun ja pelisivun tyyli loppuu*/
+
+
+
+
+
