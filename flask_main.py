@@ -3,8 +3,6 @@ from flask import Flask, request, jsonify, render_template
 import mysql.connector
 from jsonschema import validate, ValidationError
 
-
-from src.maanosakoodit import *
 from src import *
 
 #luodaan sql yhteys
@@ -115,10 +113,12 @@ def get_user_scores():
 
 @app.route('/api/get-saved-game', methods=['GET'])
 def get_saved_game():
-    pass
 
-@app.route('/api/save-game', methods=['POST'])
-def save_game():
+    return jsonify(hae_keskeneräisen_pelin_tiedot(yhteys))
+
+
+@app.route('/api/new-game', methods=['POST'])
+def new_game():
     gamedata = request.json.get('gamedata')
 
     if gamedata == None:
@@ -140,6 +140,45 @@ def save_game():
         return jsonify({"error": "Invalid parameters"})
 
     uusi_peli(yhteys, gamedata)
+    return jsonify({"status": "success"})
+
+@app.route('/api/save-game', methods=['POST'])
+def save_game():
+    gamedata = request.json.get('gamedata')
+
+    if gamedata == None:
+        return jsonify({"error": "Missing parameters"})
+
+    schema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+            "players": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {"type": "string"},
+                        "airport_counter": {"type": "integer"},
+                        "score": {"type": "integer"}
+                    },
+                    "required": ["name", "airport_counter", "score"],
+                    "additionalProperties": False
+                }
+            }
+        },
+        "required": ["players"],
+        "additionalProperties": False
+    }
+
+
+    try:
+        validate(instance=gamedata, schema=schema) #tarkistetaan parametrinä saadun datan oikeellisuus
+    except ValidationError as e:
+        return jsonify({"error": "Invalid parameters"})
+
+    if tallenna_keskeneraisen_pelin_tiedot(yhteys, gamedata) == False:
+        return jsonify({"error": "Error saving game"})
     return jsonify({"status": "success"})
 
 if __name__ == '__main__':
