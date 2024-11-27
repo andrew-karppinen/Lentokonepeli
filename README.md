@@ -15,7 +15,7 @@ Asenna kirjastot:
 
 > pip install geopy
 
-> pip install colorama
+> pip install jsonschema
 
 #### Ohjeet flight_game tietokannan muokkaamiseen:  [documentation/tietokannan muokkaus.sql](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/tietokannan%20muokkaus.sql)
 
@@ -26,5 +26,3 @@ Asenna kirjastot:
 #### Er malli:
 ![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/er%20malli.jpg)
 
-Aja ohjelma:
-> python3 main.py
