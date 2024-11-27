@@ -25,11 +25,15 @@ def index():
     return render_template('etusivu.html')
 
 
+@app.route('/pisteet.html')
+def game():
+    return render_template('pisteet.html')
+
 
 ####api:
 
 
-@app.route('/api/calculate_distance', methods=['get'])
+@app.route('/api/calculate-distance', methods=['get'])
 def calculate_distance():
     '''
     Laskee kahden lentokentän välisen etäisyyden
