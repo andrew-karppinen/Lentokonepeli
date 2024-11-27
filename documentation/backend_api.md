@@ -9,6 +9,10 @@
 
 endpoint: /api/
 
+Huomaa että mahdollisissa url parametreissä olevat välilöyt korvattava erikoismerkillä %20
+
+javascriptissä on funktio encodeURIComponent() joka hoitaa tämän automaattisesti
+
 
 ### /getcontinents/
 Menetelmä: GET
@@ -44,8 +48,7 @@ Parametrit:
 
 2kpl valinnaisia url parametreja: 
 
-"continent": "Europe",
-"country": "Finland"
+continent, country
 
 
 Palauttaa:
@@ -62,8 +65,23 @@ Palauttaa:
 }
 ```
 
+### /calculate-distance/
+Menetelmä: GET
 
+url parametrit:
 
+latitude_deg, 
+longitude_deg,
+airport_name
+
+palauttaa etäisyyden kilometreinä ja annetun lentokentän sijainnin:
+    
+```
+{
+    "distance": etaisyys,
+    "airport_location": sijanti
+}
+```
 
 ### /get-user-scores/
 Menetelmä: GET
