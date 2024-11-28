@@ -1,5 +1,5 @@
 import mysql.connector
-
+import os
 
 def hae_maat(yhteys:object, maanosa:str= "*"):
 
@@ -27,12 +27,16 @@ def hae_maat(yhteys:object, maanosa:str= "*"):
 if __name__ == '__main__': #pääohjelma
 
     # luodaan sql yhteys
+    kayttajatunnus = os.getenv('sqlkayttaja')
+    salasana = os.getenv('sqlkayttaja_salasana')
+
+    # luodaan sql yhteys
     yhteys = mysql.connector.connect(
         host="localhost",
         port=3306,
         database='flight_game',
-        user="sqlkayttaja",
-        password="salasana123",
+        user=kayttajatunnus,
+        password=salasana,
         connection_timeout=5,
         autocommit=True)
 

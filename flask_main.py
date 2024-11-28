@@ -4,31 +4,42 @@ import mysql.connector
 from jsonschema import validate, ValidationError
 
 from src import *
+import os
+
+
+#haetaan käyttäjätunnus ja salasana ympäristömuuttujista
+kayttajatunnus = os.getenv('sqlkayttaja')
+salasana = os.getenv('sqlkayttaja_salasana')
+
+
 
 #luodaan sql yhteys
 yhteys = mysql.connector.connect(
     host="localhost",
     port=3306,
     database='flight_game',
-    user="sqlkayttaja",
-    password="salasana123",
+    user=kayttajatunnus,
+    password=salasana,
     connection_timeout=5,
     autocommit=True)
-
 
 app = Flask(__name__)
 
 
 ####sivusto:
 @app.route('/')
-def index():
+def index_html():
     return render_template('etusivu.html')
 
 
 @app.route('/pisteet.html')
-def game():
+def pisteet_html():
     return render_template('pisteet.html')
 
+
+@app.route('/jatketaanko.html')
+def uusi_peli_html():
+    return render_template('jatketaanko.html')
 
 ####api:
 
