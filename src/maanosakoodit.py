@@ -1,5 +1,5 @@
 import mysql.connector
-
+import os
 
 
 '''
@@ -25,14 +25,21 @@ def maanosakoodit(yhteys:object)->list:
 if __name__ == '__main__': #pääohjelma
 
     try:
+        kayttajatunnus = os.getenv('sqlkayttaja')
+        salasana = os.getenv('sqlkayttaja_salasana')
+
+        # luodaan sql yhteys
         yhteys = mysql.connector.connect(
-                 host='127.0.0.1',
-                 port= 3306,
-                 database='flight_game',
-                 user='sqlkayttaja',
-                 password='salasana123',
-                 autocommit=True
-                 )
+            host="localhost",
+            port=3306,
+            database='flight_game',
+            user=kayttajatunnus,
+            password=salasana,
+            connection_timeout=5,
+            autocommit=True)
+
+
+
     except mysql.connector.Error as err: #virhe yhteyden muodostamisessa
         print(err)
 

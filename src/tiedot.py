@@ -48,20 +48,25 @@ def tallenna_pelin_tiedot(yhteys):
     Tallentaa valmiin pelin tiedot tietokantaan
     '''
 
-    if self.maanosa_ == "*":
+    #haetaan pelin tiedot
+
+    hae_keskeneräisen_pelin_tiedot(yhteys)
+
+
+    if maanosa_ == "*":
         komento = "INSERT INTO game (continent) VALUES (NULL);"
     else:
-        komento = f"INSERT INTO game (continent) VALUES ('{self.maanosa_}');"
+        komento = f"INSERT INTO game (continent) VALUES ('{maanosa_}');"
     kursori = yhteys.cursor()  # luodaan kursori
     kursori.execute(komento)  # suoritetaan komento
 
 
     #lisätään user_games tauluun uusi rivi
-    for pelaaja in self.pelaajat_:
-        self.luo_pelaaja(yhteys, pelaaja) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
+    for pelaaja in pelaajat_:
+        luo_pelaaja(yhteys, pelaaja) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
 
         komento = f"""INSERT INTO user_games (game_id,user_points,name)
-        values ((SELECT MAX(game_id) FROM game),{self.pelaajat_[pelaaja]},'{pelaaja}');
+        values ((SELECT MAX(game_id) FROM game),{pelaajat_[pelaaja]},'{pelaaja}');
         """ #lisätään pelaajalle uusi rivi user_games tauluun
 
         kursori.execute(komento)  # suoritetaan komento
