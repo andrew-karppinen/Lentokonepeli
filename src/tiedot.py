@@ -48,25 +48,26 @@ def tallenna_pelin_tiedot(yhteys):
     Tallentaa valmiin pelin tiedot tietokantaan
     '''
 
-    #haetaan pelin tiedot
-
-    hae_keskeneräisen_pelin_tiedot(yhteys)
+    pelin_tiedot = hae_keskeneräisen_pelin_tiedot(yhteys)    #haetaan pelin tiedot
 
 
-    if maanosa_ == "*":
-        komento = "INSERT INTO game (continent) VALUES (NULL);"
-    else:
-        komento = f"INSERT INTO game (continent) VALUES ('{maanosa_}');"
+    maanosa = pelin_tiedot["continent"]
+    maa = pelin_tiedot["country"]
+    pelaajat = pelin_tiedot["players"]
+
+
+    komento = f"""INSERT INTO game (continent, country) VALUES ('{maanosa}', '{maa}');""" #lisätään uusi rivi game tauluun
     kursori = yhteys.cursor()  # luodaan kursori
     kursori.execute(komento)  # suoritetaan komento
 
+    print(pelaajat)
 
     #lisätään user_games tauluun uusi rivi
-    for pelaaja in pelaajat_:
-        luo_pelaaja(yhteys, pelaaja) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
+    for pelaaja in pelaajat:
+        luo_pelaaja(yhteys, pelaaja['name']) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
 
         komento = f"""INSERT INTO user_games (game_id,user_points,name)
-        values ((SELECT MAX(game_id) FROM game),{pelaajat_[pelaaja]},'{pelaaja}');
+        values ((SELECT MAX(game_id) FROM game),{pelaaja['score']},'{pelaaja['name']}');
         """ #lisätään pelaajalle uusi rivi user_games tauluun
 
         kursori.execute(komento)  # suoritetaan komento
@@ -177,10 +178,13 @@ def hae_keskeneräisen_pelin_tiedot(yhteys)->dict:
         }
     elif user_temp_tulos != [] and game_temp_tulos != []:
 
+        players = []
+        for rivi in user_temp_tulos:
+            players.append({"name": rivi[0], "airport_counter": rivi[1], "score": rivi[2]})
         tulos = {
             "continent": game_temp_tulos[0][0],
             "country": game_temp_tulos[0][1],
-            "players": user_temp_tulos
+            "players": players
         }
 
     return tulos
@@ -277,7 +281,6 @@ def hae_pelaajatiedot(yhteys: object)->dict:
         "players": pelaajatiedot
     }
 
-
     return vastaus
 
 
@@ -305,7 +308,7 @@ if __name__ == '__main__': #testiohjelma
 
         pelin_tiedot = {
             "continent":"Europe",
-            "country":""
+            "country":"finland"
         }
 
         pelaajatiedot = {
@@ -323,12 +326,10 @@ if __name__ == '__main__': #testiohjelma
             ]
         }
 
-        poista_peli(yhteys)
+        #poista_peli(yhteys)
 
         #print(hae_keskeneräisen_pelin_tiedot(yhteys))
-
-
-        #print(hae_pelaajatiedot(yhteys))
+        #print(tallenna_pelin_tiedot(yhteys))
+        print(hae_pelaajatiedot(yhteys))
         #uusi_peli(yhteys,pelin_tiedot)
-        #poista_peli(yhteys)
         #print(tallenna_keskeneraisen_pelin_tiedot(yhteys,pelaajatiedot))
