@@ -22,7 +22,8 @@ CREATE TABLE user_information (
 -- luodaan taulu game
 CREATE TABLE game (
     game_id INT AUTO_INCREMENT PRIMARY KEY,
-    continent VARCHAR(255)
+    continent VARCHAR(255),
+    country VARCHAR(255)
 );
 
 
