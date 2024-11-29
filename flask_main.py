@@ -36,6 +36,10 @@ def index_html():
 def pisteet_html():
     return render_template('pisteet.html')
 
+@app.route('/uusipeli.html')
+def pelaajat_html():
+    return render_template('uusipeli.html')
+
 
 @app.route('/jatketaanko.html')
 def uusi_peli_html():
@@ -135,27 +139,41 @@ def get_saved_game():
 @app.route('/api/new-game', methods=['POST'])
 def new_game():
     gamedata = request.json.get('gamedata')
-
+    print(gamedata)
     if gamedata == None:
-        return jsonify({"error": "Missing parameters"})
+        return jsonify({"error": "Missing parameters"}),400
 
     schema = {
         "type": "object",
         "properties": {
             "continent": {"type": ["string", "null"]},
-            "country": {"type": ["string", "null"]}
+            "country": {"type": ["string", "null"]},
+            "players": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {"type": "string"},
+                        "airport_counter": {"type": "integer"},
+                        "score": {"type": "integer"}
+                    },
+                    "required": ["name", "airport_counter", "score"],
+                    "additionalProperties": False
+                }
+            }
         },
-        "required": ["continent", "country"],
+        "required": ["continent", "country","players"],
         "additionalProperties": False
     }
 
     try:
         validate(instance=gamedata, schema=schema) #tarkistetaan parametrinä saadun datan oikeellisuus
     except ValidationError as e:
-        return jsonify({"error": "Invalid parameters"})
+        print("validation error")
+        return jsonify({"error": "Invalid parameters"}), 400
 
     uusi_peli(yhteys, gamedata)
-    return jsonify({"status": "success"})
+    return jsonify({"status": "success"}), 201
 
 @app.route('/api/save-game', methods=['POST'])
 def save_game():
