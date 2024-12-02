@@ -148,12 +148,12 @@ Palauttaa:
     "players":[
         [
             "name":"Pelaaja1",
-            "airport":1,          
+            "airport_counter":1,          
             "score": 7 
         ],
         [
             "name":"Pelaaja2",
-            "airport":2, 
+            "airport_counter":2, 
             "score": 21
         ]
     ]
@@ -174,12 +174,12 @@ Parametrit:
     "players":[
         [
             "name":"Pelaaja1",
-            "airport":1,           
+            "airport_counter":1,           
             "score": 25 
         ],
         [
             "name":"Pelaaja2",
-            "airport":2,
+            "airport_counter":2,
             "score": 20
         ]
     ]
@@ -189,5 +189,5 @@ Parametrit:
 airport on numero joka on 0-5,
 jos esim 3 pelaaja on pelannut 3 lentokenttää ja 2 on jäljellä
 
-jos kaikkien pelaajien airport numero on 5 taustapalvelu tulkitsee pelin päättyneeksi ( Toiminto kesken!)
-ja tallentaa pelin tiedot automaattisesti pysvästi ( Toiminto kesken!)
+jos kaikkien pelaajien airport numero on 5 taustapalvelu tulkitsee pelin päättyneeksi
+ja tallentaa pelin tiedot automaattisesti pysvästi tilastointia varten
