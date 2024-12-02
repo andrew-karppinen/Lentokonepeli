@@ -115,7 +115,6 @@ huomaa että lista voi olla tyhjä jos pelaajia ei ole
 Luo uuden-pelin ja poistaa vanhan pelin tiedot
 Menetelmä: POST
 
-
 Parametrit:
 
 ```
@@ -128,6 +127,10 @@ Parametrit:
     ]
 }
 ```
+
+mikäli maata ei rajata sen arvoksi tulee asettaa *
+ja mikäli maanosaa ei rajata sen arvoksi tulee asettaa *
+
 
 ### /get-saved-game/
 Menetelmä: GET
