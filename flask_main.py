@@ -105,6 +105,9 @@ def get_airport():
     '''
     Palauttaa satunnaisen lentokentän
     annettujen parametrien mukaan
+
+    continent = "EU",""NA","AF","OC","AS","SA","AN"
+    country = "finland" jne
     '''
 
     continent = request.args.get('continent')
