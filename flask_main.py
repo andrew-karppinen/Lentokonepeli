@@ -210,6 +210,18 @@ def save_game():
     except ValidationError as e:
         return jsonify({"error": "Invalid parameters"})
 
+    #tutkitaan onko kaikki pelaajat pelanneet viisi lentokenttää
+    all_player_played = True
+    for player in gamedata["players"]:
+        if player["airport_counter"] < 5:
+            all_player_played = False
+            break
+
+    if all_player_played == True: #peli on pelattu
+        tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot pysyvästi tilastointia varten
+        poista_peli(yhteys) #poistetaan keskeneräinen peli
+        return jsonify({"status": "success"})
+
     if tallenna_keskeneraisen_pelin_tiedot(yhteys, gamedata) == False:
         return jsonify({"error": "Error saving game"})
     return jsonify({"status": "success"})
