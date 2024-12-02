@@ -16,7 +16,7 @@ def arpominen(yhteys,maanosa:str="*",maa:str="*"):
             randomaus = f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
 
     else: #haetaan tietystä maasta
-        randomaus =f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.iso_country = '{maa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
+        randomaus =f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.name = '{maa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
 
 
     kursori = yhteys.cursor()
