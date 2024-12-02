@@ -49,6 +49,7 @@ function paivita_maat(maanosa='*')
         })
         .catch(function(error) {
             console.log(error);
+            alert('Virhe yhdistettäessä taustapalveluun');
         });
 
 }
@@ -78,7 +79,6 @@ aloita_nappi.addEventListener('click', function() {
         {
             let pelaaja_tiedot = {'name': pelaaja.value, 'score': 0, 'airport_counter': 0};
             pelin_tiedot['gamedata']['players'].push(pelaaja_tiedot);
-
         }
     }
 
@@ -90,7 +90,6 @@ aloita_nappi.addEventListener('click', function() {
 
         //pelaajat ja muut tiedot syötetty onnistuneesti
         //tallennetaan pelin tiedot serverille post menetelmällä
-
         fetch('/api/new-game', {
             method: 'POST',
             headers: {
@@ -111,6 +110,7 @@ aloita_nappi.addEventListener('click', function() {
             })
             .catch(function(error) { //virhe
                 console.log(error);
+                alert('Virhe yhdistettäessä taustapalveluun');
             });
 
 

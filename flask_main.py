@@ -32,6 +32,7 @@ def index_html():
     return render_template('etusivu.html')
 
 
+
 @app.route('/pisteet.html')
 def pisteet_html():
     return render_template('pisteet.html')
@@ -175,7 +176,8 @@ def new_game():
         print("validation error")
         return jsonify({"error": "Invalid parameters"}), 400
 
-    uusi_peli(yhteys, gamedata)
+    uusi_peli(yhteys, gamedata) #luodaan uusi peli
+    tallenna_keskeneraisen_pelin_tiedot(yhteys,gamedata) #tallennetaan pelin tiedot pysyvästi tilastointia varten
     return jsonify({"status": "success"}), 201
 
 @app.route('/api/save-game', methods=['POST'])
