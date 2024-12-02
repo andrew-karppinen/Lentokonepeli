@@ -8,6 +8,8 @@ def tyhjennä_tiedot(yhteys: object):
     TRUNCATE TABLE game;
     TRUNCATE TABLE user_games;
     TRUNCATE TABLE user_information;
+    TRUNCATE TABLE user_temp;
+    TRUNCATE TABLE game_temp;
     SET foreign_key_checks = 1;
     """
 
@@ -41,3 +43,5 @@ if __name__ == '__main__': #testiohjelma
             autocommit=True)
     except mysql.connector.Error as err: #virhe yhteyden muodostamisessa
         print(err)
+
+    tyhjennä_tiedot(yhteys)
