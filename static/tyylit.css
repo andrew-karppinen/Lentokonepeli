@@ -145,7 +145,71 @@ body {
   outline: none;
 }
 
+maanosavalinta-container {
+    display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.maanosavalinta-container div {
+    text-align: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+}
 
 
+.maanosavalinta-container select {
+    width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.dropdown-label {
+    font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/*pisteet html tyyli */
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 60%;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f0f8ff;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .etusivunappi {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .etusivunappi:hover {
+      background-color: #45a049;
+    }
 
 
