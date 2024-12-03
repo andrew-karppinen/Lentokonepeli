@@ -110,6 +110,26 @@ huom ei liity keskeneräiseen peliin vaan aikaisempiin peleihin!
 
 huomaa että lista voi olla tyhjä jos pelaajia ei ole
 
+### /get-last-game-scores/
+Menetelmä: GET
+
+Palauttaa tiedot viimeisimmästä pelistä
+
+```
+{
+    "players":[
+        {
+            "name":"Pelaaja1",
+            "score": 7
+        },
+        {
+            "name":"Pelaaja2",
+            "score": 21
+        }
+    ]
+}
+```
+
 
 ### /new-game/
 Luo uuden-pelin ja poistaa vanhan pelin tiedot
