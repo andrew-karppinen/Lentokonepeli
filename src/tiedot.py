@@ -5,8 +5,7 @@ import os
 Toiminnot:
 Keskeneräisen pelin tietojen tallentamiseen ja hakemiseen (game_temp ja user_temp taulut)
 
-Pelattujen pelien ja pistetilastojen hakemiseen (user_information, user_games game taulut)
-
+Pelaajien pistetilastojen haku pelatuista peleistä (user_games ja user_information taulut)
 '''
 
 
@@ -45,7 +44,7 @@ def luo_pelaaja(yhteys, nimi):
 
 def tallenna_pelin_tiedot(yhteys):
     '''
-    Tallentaa valmiin pelin tiedot tietokantaan
+    Tallentaa valmiin pelin tiedot tietokantaan tilastointia varten
     '''
 
     pelin_tiedot = hae_keskeneräisen_pelin_tiedot(yhteys)    #haetaan pelin tiedot
@@ -54,7 +53,6 @@ def tallenna_pelin_tiedot(yhteys):
     maanosa = pelin_tiedot["continent"]
     maa = pelin_tiedot["country"]
     pelaajat = pelin_tiedot["players"]
-
 
     komento = f"""INSERT INTO game (continent, country) VALUES ('{maanosa}', '{maa}');""" #lisätään uusi rivi game tauluun
     kursori = yhteys.cursor()  # luodaan kursori
@@ -148,7 +146,7 @@ def hae_keskeneräisen_pelin_tiedot(yhteys)->dict:
             "score": 20
         ]
     ]
-    }`
+    }
     '''
 
     komento = """
@@ -232,6 +230,34 @@ def poista_peli(yhteys):
 
     print("debug: ", tulos)
 
+def hae_viimeisimman_pelin_tiedot(yhteys:object):
+    '''
+    Hakee viimeisimmän pelin tiedot game, user_games ja user_information tauluista
+    pelaajat lajitellaan pisteiden mukaan laskevaan järjestykseen
+    '''
+
+
+    komento = """SELECT name, user_points 
+    FROM user_games 
+    WHERE game_id = (SELECT MAX(game_id) FROM user_games) ORDER BY user_points DESC;"""
+
+
+    kursori = yhteys.cursor()  # luodaan kursori
+    kursori.execute(komento)  # suoritetaan komento
+    tulos = kursori.fetchall()  # haetaan kaikki tulokset
+    kursori.close()
+
+    pelaajatiedot = []
+
+    for rivi in tulos:
+        score = round(rivi[1], 2)
+        pelaajatiedot.append({"name": rivi[0], "score": rivi[1]})
+
+    vastaus = {
+        "players": pelaajatiedot
+    }
+
+    return vastaus
 
 def hae_pelaajatiedot(yhteys: object)->dict:
     '''
@@ -266,15 +292,16 @@ def hae_pelaajatiedot(yhteys: object)->dict:
     kursori.close()
 
 
-
-
     continents = "Koko maapallo"
     pelaajatiedot = []
     for rivi in tulos:
-        if rivi[3] is None:
-            pelaajatiedot.append({"name": rivi[0], "total_games": rivi[1], "ranking": rivi[2] / rivi[1] if rivi[1] > 0 else 0, "top_continent": continents})
+
+        ranking = rivi[2] / rivi[1] if rivi[1] > 0 else 0 #lasketaan keskiarvo
+        ranking = round(ranking, 2) #pyöristetään kahdelle desimaalille
+        if rivi[3] == "*":
+            pelaajatiedot.append({"name": rivi[0], "total_games": rivi[1], "ranking": ranking, "top_continent": continents})
         else:
-            pelaajatiedot.append({"name": rivi[0], "total_games": rivi[1], "ranking": (rivi[2] / rivi[1] if rivi[1] > 0 else 0), "top_continent": rivi[3]})
+            pelaajatiedot.append({"name": rivi[0], "total_games": rivi[1], "ranking": ranking, "top_continent": rivi[3]})
 
 
     vastaus = {
@@ -330,6 +357,7 @@ if __name__ == '__main__': #testiohjelma
 
         #print(hae_keskeneräisen_pelin_tiedot(yhteys))
         #print(tallenna_pelin_tiedot(yhteys))
-        print(hae_pelaajatiedot(yhteys))
         #uusi_peli(yhteys,pelin_tiedot)
         #print(tallenna_keskeneraisen_pelin_tiedot(yhteys,pelaajatiedot))
+
+        print(hae_viimeisimman_pelin_tiedot(yhteys))
