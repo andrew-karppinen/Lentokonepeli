@@ -37,6 +37,11 @@ def index_html():
 def pisteet_html():
     return render_template('pisteet.html')
 
+@app.route('/pelikohtainen-pistetilasto.html')
+def pelikohtainen_pistetilasto():
+    return render_template('pelikohtainen-pistetilasto.html')
+
+
 @app.route('/uusipeli.html')
 def pelaajat_html():
     return render_template('uusipeli.html')
@@ -127,12 +132,12 @@ def get_airport():
 
 @app.route('/api/get-user-scores', methods=['GET'])
 def get_user_scores():
-
     return jsonify(hae_pelaajatiedot(yhteys))
 
 
-
-
+@app.route('/api/get-last-game-scores', methods=['GET'])
+def get_last_game_scores():
+    return jsonify(hae_viimeisimman_pelin_tiedot(yhteys))
 
 @app.route('/api/get-saved-game', methods=['GET'])
 def get_saved_game():
