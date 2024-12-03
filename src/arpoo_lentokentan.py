@@ -9,19 +9,40 @@ def arpominen(yhteys,maanosa:str="*",maa:str="*"):
     '''
 
 
-    if maa == "*": #ei rajattu maan mukaan
-        if maanosa=="*": #haetaan kaikista maanosista
-            randomaus = f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
-        else:
-            randomaus = f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.continent = '{maanosa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
-
-    else: #haetaan tietystä maasta
-        randomaus =f"SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg FROM airport LEFT JOIN country on airport.iso_country = country.iso_country where country.name = '{maa}' AND airport.type = 'large_airport' ORDER BY RAND() LIMIT 1;"
-
-
     kursori = yhteys.cursor()
-    kursori.execute(randomaus)
+
+    #Parametrisoitu kysely sql injektien estämiseksi
+    if maa == "*":  # Ei rajattu maan mukaan
+        if maanosa == "*":  # Haetaan kaikista maanosista
+            randomaus = """
+                SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg 
+                FROM airport 
+                LEFT JOIN country ON airport.iso_country = country.iso_country 
+                WHERE airport.type = 'large_airport' 
+                ORDER BY RAND() LIMIT 1;
+            """
+            kursori.execute(randomaus)
+        else:
+            randomaus = """
+                SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg 
+                FROM airport 
+                LEFT JOIN country ON airport.iso_country = country.iso_country 
+                WHERE country.continent = %s AND airport.type = 'large_airport' 
+                ORDER BY RAND() LIMIT 1;
+            """
+            kursori.execute(randomaus, (maanosa,))
+    else:  # Haetaan tietystä maasta
+        randomaus = """
+            SELECT airport.name, country.name, country.continent, airport.latitude_deg, airport.longitude_deg 
+            FROM airport 
+            LEFT JOIN country ON airport.iso_country = country.iso_country 
+            WHERE country.name = %s AND airport.type = 'large_airport' 
+            ORDER BY RAND() LIMIT 1;
+        """
+        kursori.execute(randomaus, (maa,))
+
     tulos = kursori.fetchone()
+    kursori.close()
 
     if tulos == None:
         return None

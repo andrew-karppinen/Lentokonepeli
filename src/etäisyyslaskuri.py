@@ -4,7 +4,7 @@ from geopy.distance import geodesic
 import os
 
 
-# Funktio etäisyyden laskemiseen geopy-kirjaston avulla
+#Funktio etäisyyden laskemiseen geopy-kirjaston avulla
 def laske_etaisyys(sijainti1: tuple, sijainti2: tuple) -> float:
     '''
     sijainti = latitude_deg, longitude_deg
@@ -26,11 +26,11 @@ def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
         kursori = yhteys.cursor()
 
         # Hae kohdelentokentän tiedot (leveys- ja pituusaste) lentokentän nimen perusteella
-        komento = f"""SELECT latitude_deg, longitude_deg FROM airport WHERE name = '{kohdelentokentta_nimi}';"""
-        print(komento)
-        kursori.execute(komento)
-        tulos = kursori.fetchone()
+        komento = "SELECT latitude_deg, longitude_deg FROM airport WHERE name = %s"
+        kursori.execute(komento, (kohdelentokentta_nimi,)) #Parametrisoitu kysely sql injektien estämiseksi
 
+        tulos = kursori.fetchone()
+        kursori.close()
 
 
         if not tulos:
@@ -50,7 +50,7 @@ def hae_etaisyys(yhteys: object, kohdelentokentta_nimi: str, sijanti: tuple):
 
     except mysql.connector.Error as err:
         print(err)
-        return False
+        return False,[]
 
 
 
