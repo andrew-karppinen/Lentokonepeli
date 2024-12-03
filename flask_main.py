@@ -66,11 +66,11 @@ def calculate_distance():
 
     try:
         if latitude_deg == None or latitude_deg == "" or longitude_deg == None or longitude_deg == "" or airport_name == None or airport_name == "":
-            return jsonify({"error": "Missing parameters"})
+            return jsonify({"error": "Missing parameters"}), 404
         latitude_deg = float(latitude_deg)
         longitude_deg = float(longitude_deg)
 
-        if latitude_deg < -90 or latitude_deg > 90 and longitude_deg <-180 or latitude_deg > 180: #näiden arvojen oltava 0-90
+        if (latitude_deg < -90 or latitude_deg > 90) or (longitude_deg <-180 or latitude_deg > 180): #näiden arvojen oltava 0-90
             return jsonify({"error": "Invalid parameters"}), 400
     except:
         return jsonify({"error": "Invalid parameters"}), 400
