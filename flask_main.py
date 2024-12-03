@@ -64,8 +64,17 @@ def calculate_distance():
     longitude_deg = request.args.get('longitude_deg')
     airport_name = request.args.get('airport_name')
 
-    if latitude_deg == None or latitude_deg == "" or longitude_deg == None or longitude_deg == "" or airport_name == None or airport_name == "":
-        return jsonify({"error": "Missing parameters"})
+    try:
+        if latitude_deg == None or latitude_deg == "" or longitude_deg == None or longitude_deg == "" or airport_name == None or airport_name == "":
+            return jsonify({"error": "Missing parameters"})
+        latitude_deg = float(latitude_deg)
+        longitude_deg = float(longitude_deg)
+
+        if latitude_deg < -90 or latitude_deg > 90 and longitude_deg <-180 or latitude_deg > 180: #näiden arvojen oltava 0-90
+            return jsonify({"error": "Invalid parameters"}), 400
+    except:
+        return jsonify({"error": "Invalid parameters"}), 400
+
 
     sijainti = (latitude_deg, longitude_deg)
     etaisyys,sijanti = hae_etaisyys(yhteys, airport_name, sijainti) #haetaan etäisyys tietokannasta
@@ -96,8 +105,11 @@ def get_countries():
 
     continent = request.args.get('continent')
 
+
     if continent == None or continent == "": #ei annettua maanosaa
         continent = "*"
+    elif continent not in ["NA", "OC", "AF", "AN", "EU", "AS", "SA","*"]:
+        return jsonify({"error": "Invalid continent"}), 400
 
     maat = hae_maat(yhteys,continent) #haetaan maat tietokannasta
     vastaus = {
@@ -148,15 +160,14 @@ def get_saved_game():
 @app.route('/api/new-game', methods=['POST'])
 def new_game():
     gamedata = request.json.get('gamedata')
-    print(gamedata)
     if gamedata == None:
         return jsonify({"error": "Missing parameters"}),400
 
     schema = {
         "type": "object",
         "properties": {
-            "continent": {"type": ["string", "null"]},
-            "country": {"type": ["string", "null"]},
+            "continent": {"type": ["string"]},
+            "country": {"type": ["string"]},
             "players": {
                 "type": "array",
                 "items": {
@@ -228,6 +239,7 @@ def save_game():
             break
 
     if all_player_played == True: #peli on pelattu
+        tallenna_keskeneraisen_pelin_tiedot(yhteys, gamedata) #tallennetaan keskeneräisen pelin tiedot
         tallenna_pelin_tiedot(yhteys) #tallennetaan pelin tiedot pysyvästi tilastointia varten
         poista_peli(yhteys) #poistetaan keskeneräinen peli
         return jsonify({"status": "success"})
