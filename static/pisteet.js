@@ -22,10 +22,11 @@ fetch(enpoint)
     })
     .then(function (data) {
 
-        if (data["players"].length != 0 )
+        if (data["players"].length != 0 ) //jos pelaajia on lisätään ne taulukkoon
         {
+            console.log(data); //tulostetaan apista saatu data konsoliin
             let counter = 1;
-            for (let i of data["players"]) {
+            for (let i of data["players"]) { //käydään läpi pelaajat ja lisätään ne taulukkoon
                 let row = pistetaulukko.insertRow(-1);
                 let cell1 = row.insertCell(0);
 
