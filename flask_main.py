@@ -108,7 +108,7 @@ def get_countries():
 
     if continent == None or continent == "": #ei annettua maanosaa
         continent = "*"
-    elif continent not in ["NA", "OC", "AF", "AN", "EU", "AS", "SA","*"]:
+    elif continent.upper() not in ["NA", "OC", "AF", "AN", "EU", "AS", "SA","*"]:
         return jsonify({"error": "Invalid continent"}), 400
 
     maat = hae_maat(yhteys,continent) #haetaan maat tietokannasta
