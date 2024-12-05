@@ -292,7 +292,7 @@ def hae_pelaajatiedot(yhteys: object)->dict:
     kursori.close()
 
 
-    continents = "Koko maapallo"
+    continents = "*"
     pelaajatiedot = []
     for rivi in tulos:
 
