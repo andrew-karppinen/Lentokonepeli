@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap Kartta ja Sijainti</title>
+    <!-- Lisää Leafletin CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+
+    <style>
+        /* Kartta muotoilu testausta varten */
+        #map {
+            height: 450px;
+            width: 60%;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Kartan säilö -->
+    <h1 id="ohje">  </h1>
+
+    <div id="map"></div>
+
+    <p id="etäisyys">Etäisyys: </p>
+
+    <button id="arvaa"> Arvaa </button>
+    <button id="seuraava"> Seuraava </button>
+
+    <!-- Lisää Leafletin JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+
+    <script src="../static/kartta.js" defer></script>
+
+</body>
+</html>
