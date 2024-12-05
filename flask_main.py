@@ -166,8 +166,8 @@ def new_game():
     schema = {
         "type": "object",
         "properties": {
-            "continent": {"type": ["string"]},
-            "country": {"type": ["string"]},
+            "continent": {"type": "string", "minLength": 1, "maxLength": 10},
+            "country": {"type": "string", "minLength": 1, "maxLength": 10},
             "players": {
                 "type": "array",
                 "items": {
