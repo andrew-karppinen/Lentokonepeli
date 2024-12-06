@@ -20,6 +20,7 @@ let arvaaClicked = false; // Tarkistaa, onko "Arvaa" painettu
 let pelintiedot = null;
 
 const pelaajan_nimi_elementti = document.getElementById('pelaajan_nimi');
+const kierros_elementti = document.getElementById('kierros');
 let map = null; // Karttaobjekti globaalissa scopessa
 
 async function aseta_kartan_aloituspaikka(maa) {
@@ -78,11 +79,6 @@ async function main() {
 
 
 
-
-
-
-
-
     //haetaan pelin tiedot taustapoalvelimelta
     await fetch("api/get-saved-game")
         .then(function (response) {
@@ -126,8 +122,12 @@ async function main() {
         }
     }
 
-    //päivitetään pelaajan nimi
+    //päivitetään pelaajan nimi html sivulle
     pelaajan_nimi_elementti.textContent = "Pelaaja: "+ pelaaja["name"];
+
+
+    //päivitetään kierros html sivulle
+    kierros_elementti.textContent = "Kierros: "+ (pelaaja["airport_counter"]+1) + "/5";
 
     // Rakennetaan endpoint URL query-parametreilla
     endpoint = endpoint + "?continent=" + maanosa + "&country=" + maa;
