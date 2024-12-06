@@ -17,7 +17,7 @@ const peruuta_nappi = document.getElementById('peruuta_nappi');
 
 
 jatka_nappi.addEventListener('click', function() {
-    window.location.href = "/peli";
+    window.location.href = "/kartta.html";
 });
 
 
