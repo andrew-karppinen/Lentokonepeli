@@ -105,7 +105,7 @@ aloita_nappi.addEventListener('click', function() {
                 return response.json(); //palauttaa jsonin jos ei tule erroria
             })
             .then(function(data) {
-                console.log(data);
+                window.location.href = "/kartta.html"
 
             })
             .catch(function(error) { //virhe
