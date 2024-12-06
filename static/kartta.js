@@ -7,17 +7,10 @@
 
 
 
-
 // Globaaliin scopeen määritellään muuttujat
 let lentokentta, lentokentanNimi, lentokentanLatitude, lentokentanLongitude;
 
-// Luo kartta ja määritä aloituspaikka ja zoom-taso
-let map = L.map('map').setView([45.733, 3.167], 2); // Esimerkiksi Helsinki
 
-// Lisää OpenStreetMap-tason kartalle
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
 
 // Muuttuja edellisen merkin ja klikkipisteen tallentamiseen
 let currentMarker = null;
@@ -26,13 +19,69 @@ let arvaaClicked = false; // Tarkistaa, onko "Arvaa" painettu
 
 let pelintiedot = null;
 
-pelaajan_nimi_elementti = document.getElementById('pelaajan_nimi');
+const pelaajan_nimi_elementti = document.getElementById('pelaajan_nimi');
+let map = null; // Karttaobjekti globaalissa scopessa
 
+async function aseta_kartan_aloituspaikka(maa) {
+    /*
+    Asettaa kartan aloituspaikan ja zoom-tason maan perusteella
+    */
 
+    let lat = 0, lon = 0, zoom = 4; // Koko maapallon oletuskoordinaatit ja zoom
+
+    if (maa !== "*") {
+        // Hae koordinaatit maan perusteella
+        let endpoint = `https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(maa)}&format=json`;
+
+        try {
+            let response = await fetch(endpoint);
+            if (!response.ok) {
+                throw new Error("Virhe geokoodauspyynnössä.");
+            }
+
+            let data = await response.json();
+            if (data.length > 0) {
+                // Käytä ensimmäistä tulosta
+                lat = parseFloat(data[0].lat);
+                lon = parseFloat(data[0].lon);
+                zoom = 6; // Zoom-taso yksittäiselle maalle
+            } else {
+                console.error("Maan nimen perusteella ei löytynyt sijaintia.");
+                return;
+            }
+        } catch (error) {
+            console.error("Virhe geokoodauksessa:", error);
+            return;
+        }
+    }
+
+    // Luo tai päivitä kartta
+    if (!map) {
+        // Luo uusi kartta, jos sitä ei ole vielä olemassa
+        map = L.map('map').setView([lat, lon], zoom);
+
+        // Lisää OpenStreetMap-tason kartalle
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    } else {
+        // Päivitä olemassa olevan kartan näkymä
+        map.setView([lat, lon], zoom);
+    }
+}
 
 
 async function main() {
     //päöfunktio sen takia että await avainsanaa voidaan käyttää vain async-funktioiden sisällä
+
+
+
+
+
+
+
+
+
 
     //haetaan pelin tiedot taustapoalvelimelta
     await fetch("api/get-saved-game")
@@ -58,6 +107,11 @@ async function main() {
     let endpoint = '/api/getairport';  // Flaskin API-reitti
     let maanosa = pelintiedot["continent"];  //haetaan pelin tiedoista maanosa
     let maa = pelintiedot["country"];  //haetaan pelin tiedoista maa
+
+
+    await aseta_kartan_aloituspaikka(maa); //asetetaan kartan aloituspaikka
+
+
 
     let pelaaja = {"name": "", "score": 0, "airport_counter": 0}; //alustetaan pelaaja objekti
 
