@@ -41,3 +41,7 @@ document.getElementById('pelaa_nappi').addEventListener('click', function() {
 document.getElementById('pisteet_nappi').addEventListener('click', function() {
     window.location.href = '/pisteet.html';
 });
+
+document.getElementById('saannot-nappi').addEventListener('click', function() {
+    window.location.href = '/saannot.html';
+});
