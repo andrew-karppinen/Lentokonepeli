@@ -229,8 +229,7 @@ async function main() {
         let distanceInMeters = clickPoint.distanceTo(airportPoint); // Etäisyys metreinä
         let distanceInKilometers = (distanceInMeters / 1000).toFixed(0); // Etäisyys kilometreinä, pyöristetty kahteen desimaaliin
 
-        // Näytetään etäisyys kilometreinä
-        document.getElementById('etäisyys').textContent = "Etäisyys lentokentälle: " + distanceInKilometers + " kilometriä.";
+
 
         // Estetään merkkiä liikkumasta napin painamisen jälkeen
         if (currentMarker) {
@@ -242,28 +241,31 @@ async function main() {
 
         //lasketaan pisteet 0-100
 
-
         let score = 0;
         if (pelintiedot["country"] =="*") {
             //jos maa on kaikki maat
-            score = 1000 - distanceInKilometers/10;
+            score = (1000 - distanceInKilometers)/10;
 
         }
         else {
             //jos maa on tietty maa kilometriraja on tiukempi
-            score = 500 - distanceInKilometers/5;
+            score = (200 - distanceInKilometers)/2;
 
         }
         if (score < 0) { //pisteet ei voi mennä negatiiviseksi
             score = 0;
         }
-        
+
         //pyöristetään pisteet kokonaisluvuksi
         score = Math.round(score);
 
         pelaaja["score"] = pelaaja["score"] + score; //päivitetään pelaajan pisteet
         pelaaja["airport_counter"] = pelaaja["airport_counter"] + 1; //päivitetään pelaajan lentokenttä laskuri
 
+
+        // Näytetään etäisyys kilometreinä
+        document.getElementById('etäisyys').textContent = "Etäisyys lentokentälle: " + distanceInKilometers + " kilometriä.";
+        document.getElementById('pisteet').textContent = "Pisteet: " + score + " pistettä.";
 
         let kaikki_pelaajat_pelannut = true; //tarkistetaan onko kaikki pelaajat pelanneet
         for (let i =0;i<pelintiedot["players"].length;i++){ //käydään läpi kaikki pelaajat
