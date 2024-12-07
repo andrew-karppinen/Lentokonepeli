@@ -23,6 +23,8 @@ const pelaajan_nimi_elementti = document.getElementById('pelaajan_nimi');
 const kierros_elementti = document.getElementById('kierros');
 let map = null; // Karttaobjekti globaalissa scopessa
 
+let kaikki_pelaajat_pelannut = true; //tarkistaa onko kaikki pelaajat pelanneet 5 kertaa
+
 async function aseta_kartan_aloituspaikka(maa) {
     /*
     Asettaa kartan aloituspaikan ja zoom-tason maan perusteella
@@ -72,11 +74,9 @@ async function aseta_kartan_aloituspaikka(maa) {
 }
 
 
+
 async function main() {
     //päöfunktio sen takia että await avainsanaa voidaan käyttää vain async-funktioiden sisällä
-
-
-
 
 
     //haetaan pelin tiedot taustapoalvelimelta
@@ -137,7 +137,7 @@ async function main() {
 
 
 
-    // Tehdään fetch-pyyntö Flaskin API:iin
+    //Haetaan lentokenttä Flaskin API:sta
     fetch(endpoint)
         .then(function (response) {
             // Tarkistetaan, että pyyntö onnistui (status 200)
@@ -267,21 +267,19 @@ async function main() {
         document.getElementById('etäisyys').textContent = "Etäisyys lentokentälle: " + distanceInKilometers + " kilometriä.";
         document.getElementById('pisteet').textContent = "Pisteet: " + score + " pistettä.";
 
-        let kaikki_pelaajat_pelannut = true; //tarkistetaan onko kaikki pelaajat pelanneet
-        for (let i =0;i<pelintiedot["players"].length;i++){ //käydään läpi kaikki pelaajat
+        for (let i =0;i<pelintiedot["players"].length;i++){
+            //käydään läpi kaikki pelaajat, jotta voidaan päivittää pelivuorossa olevan pelaajan tiedot ja tarkistaa onko kaikki pelaajat pelanneet 5 kertaa
 
             if (pelintiedot["players"][i]["name"] == pelaaja["name"]) //päivitetään pelivuorossa olevan pelaajan tiedot pelintiedot objektiin
             {
                 pelintiedot["players"][i]["score"] = pelaaja["score"];
                 pelintiedot["players"][i]["airport_counter"] = pelaaja["airport_counter"];
-
             }
             ''
             if(pelintiedot["players"][i]["airport_counter"] < 5) //jos joku pelaajista ei ole pelannut vielä 5 kertaa
             {
                 kaikki_pelaajat_pelannut = false;
             }
-
         }
 
 
@@ -317,11 +315,7 @@ async function main() {
         arvaaClicked = true;
 
 
-        if (kaikki_pelaajat_pelannut==true) //jos kaikki pelaajat ovat pelanneet 5 kertaa
-        {
-            console.log("kaikki pelaajat pelanneet 5 kertaa");
-            window.location.href = "/pelikohtainen-pistetilasto.html"; //siirrytään  pistetilastoon
-        }
+
 
 
     });
@@ -329,7 +323,15 @@ async function main() {
 
     // Refreshataan sivu
     document.getElementById('seuraava').addEventListener('click', function () {
-        location.reload();
+
+        if (kaikki_pelaajat_pelannut==true) //jos kaikki pelaajat ovat pelanneet 5 kertaa
+        {
+            console.log("kaikki pelaajat pelanneet 5 kertaa");
+            window.location.href = "/pelikohtainen-pistetilasto.html"; //siirrytään  pistetilastoon
+        }
+        else {
+            window.location.reload(); //muuten refreshataan sivu
+        }
     });
 }
 
