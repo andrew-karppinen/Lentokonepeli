@@ -69,7 +69,7 @@ aloita_nappi.addEventListener('click', function() {
 
     console.log(maa_lista.value, maanosa_lista.value);
 
-    let pelin_tiedot = {'gamedata':{'country': maa_lista.value, 'continent': maa_lista.value, 'players':[]}};
+    let pelin_tiedot = {'gamedata':{'country': maa_lista.value, 'continent': maanosa_lista.value, 'players':[]}};
 
 
 
