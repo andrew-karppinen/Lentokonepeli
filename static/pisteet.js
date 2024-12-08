@@ -16,6 +16,7 @@ etusivulle_nappi.addEventListener('click', function () {
 });
 
 
+
 fetch(enpoint)
     .then(function (response) {
         return response.json();
@@ -32,10 +33,14 @@ fetch(enpoint)
 
                 let cell2 = row.insertCell(1);
                 let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
 
                 cell1.innerHTML = counter;
                 cell2.innerHTML = i["name"];
                 cell3.innerHTML = i["ranking"];
+                cell4.innerHTML = i["top_continent"];
+                cell5.innerHTML = i["total_games"];
 
                 counter += 1;
             }
