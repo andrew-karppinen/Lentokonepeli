@@ -122,7 +122,7 @@ async function aseta_kartan_aloituspaikka(maa) {
     Asettaa kartan aloituspaikan ja zoom-tason maan perusteella
     */
 
-    let lat = 0, lon = 0, zoom = 4; // Koko maapallon oletuskoordinaatit ja zoom
+    let lat = 40, lon = 0, zoom = 3; // Koko maapallon oletuskoordinaatit ja zoom
 
     if (maa !== "*") {
         // Hae koordinaatit maan perusteella

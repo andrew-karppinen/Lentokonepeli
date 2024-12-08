@@ -51,6 +51,11 @@ def pelaajat_html():
 def uusi_peli_html():
     return render_template('jatketaanko.html')
 
+@app.route('/saannot.html')
+def saannot_html():
+    return render_template('saannot.html')
+
+
 @app.route('/kartta.html')
 def kartta_html():
     return render_template('kartta.html')
