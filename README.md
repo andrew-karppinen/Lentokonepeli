@@ -20,9 +20,7 @@ Asenna kirjastot:
 #### Ohjeet flight_game tietokannan muokkaamiseen:  [documentation/tietokannan muokkaus.sql](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/tietokannan%20muokkaus.sql)
 
 #### Relaatiomalli:
-![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/relaatiomalli.png)
+![relaatiomalli](https://github.com/user-attachments/assets/55b5e94e-9df5-449e-8ff7-233718a4ead9)
 
 
-#### Er malli:
-![kuva](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/er%20malli.jpg)
 
