@@ -17,10 +17,10 @@ def onko_pelaaja_olemassa(yhteys, nimi)->bool:
     Tarkistaa onko tämän niminen pelaaja tietokannassa
     '''
 
-    komento = f"SELECT name FROM user_information WHERE name = '{nimi}';"
+    komento = f"SELECT name FROM user_information WHERE name = %s;"
 
     kursori = yhteys.cursor()  # luodaan kursori
-    kursori.execute(komento)
+    kursori.execute(komento, (nimi,))  # suoritetaan komento parametrisoidusti
     tulos = kursori.fetchone()
     kursori.close()
 
@@ -35,10 +35,10 @@ def luo_pelaaja(yhteys, nimi):
     '''
 
     if onko_pelaaja_olemassa(yhteys, nimi) == False: #käyttäjää  ei ole jo olemassa
-        komento = f"INSERT INTO user_information (name) VALUES ('{nimi}');"
+        komento = f"INSERT INTO user_information (name) VALUES (%s);"
 
         kursori = yhteys.cursor()  # luodaan kursori
-        kursori.execute(komento)
+        kursori.execute(komento, (nimi,))  # suoritetaan komento parametrisoidusti
         kursori.close()
 
 
@@ -107,7 +107,6 @@ def tallenna_keskeneraisen_pelin_tiedot(yhteys,tiedot:dict)->bool:
     tulos = kursori.fetchall()  # haetaan kaikki tulokset
     kursori.close()
 
-    print("debug: ", tulos)
 
     for pelaaja in tiedot["players"]:
         luo_pelaaja(yhteys, pelaaja["name"]) #yritetään luoda pelaaja, jos pelaaja jo on tämä ei tee mitään
@@ -116,12 +115,8 @@ def tallenna_keskeneraisen_pelin_tiedot(yhteys,tiedot:dict)->bool:
     kursori = yhteys.cursor()  # luodaan kursori
 
     for pelaaja in tiedot["players"]:
-
-        komento = f"""INSERT INTO user_temp (name,airport_counter,user_points) VALUES ('{pelaaja["name"]}','{pelaaja["airport_counter"]}','{pelaaja["score"]}')"""
-        print("debug: ", tulos)
-        kursori.execute(komento)  # suoritetaan komento
-        game_temp_tulos = kursori.fetchall()  # haetaan kaikki tulokset
-        print("debug: ", tulos)
+        komento = f"""INSERT INTO user_temp (name,airport_counter,user_points) VALUES (%s,%s,%s);"""
+        kursori.execute(komento,(pelaaja["name"],pelaaja["airport_counter"],pelaaja["score"]))  # suoritetaan komento parametrisoidusti
     kursori.close()
 
     return True
