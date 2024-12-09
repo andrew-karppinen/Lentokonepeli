@@ -197,11 +197,24 @@ def uusi_peli(yhteys, pelin_tiedot):
 
     poista_peli(yhteys) #tyhennetään game_temp ja user_temp taulut
 
-    komento = f"INSERT INTO game_temp (continent, country) VALUES ('{pelin_tiedot['continent']}', '{pelin_tiedot['country']}');"
+    country = pelin_tiedot["country"]
+    continent = pelin_tiedot["continent"]
+
+
+    if country != "*":
+        #parametrisoitu kysely sql injektion estämiseksi
+        komento = "SELECT continent from country WHERE name = %s;"
+        kursori = yhteys.cursor()
+        kursori.execute(komento,(country,))
+        continent = kursori.fetchone()[0]
+
+    #haetaan maan maanosa
+    print("debug: ", continent)
+    #parametrisoitu kysely sql injektion estämiseksi
+    komento = "INSERT INTO game_temp (continent, country) VALUES (%s, %s);"
     kursori = yhteys.cursor()  # luodaan kursori
-    kursori.execute(komento)  # suoritetaan komento
-    tulos = kursori.fetchall()  # haetaan kaikki tulokset
-    print("debug: ", tulos)
+    kursori.execute(komento, (continent, country))  # suoritetaan komento
+
     kursori.close()
 
 
