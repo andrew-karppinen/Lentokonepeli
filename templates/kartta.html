@@ -4,38 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Quest</title>
+
     <title>OpenStreetMap Kartta ja Sijainti</title>
     <!-- Lisää Leafletin CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="../static/tyylit.css">
+
+        <!-- Lisää Leafletin JavaScript -->
 
     <style>
         /* Kartta muotoilu testausta varten */
-        #map {
-            height: 450px;
-            width: 60%;
-        }
+
     </style>
 
 </head>
+
+
+
 <body>
 
 
     <h1 id="ohje">  </h1>
 
+
+
+
+    <h3 id="aika">Aika: </h3>
+    <h3 id="pelaajan_nimi"> </h3>
+    <h3 id="kierros"> </h3>
+
     <div id="map"></div>
 
-    <p id="etäisyys">Etäisyys: </p>
-    <p id="pisteet">Pisteet: </p>
-    <p id="aika">Aika: </p>
-    <p id="pelaajan_nimi"> </p>
-    <p id="kierros"> </p>
-    <button id="arvaa"> Arvaa </button>
-    <button id="seuraava"> Seuraava </button>
+    <div class="etaisyys_pisteet">
+        <h3 id="etäisyys"> </h3>
+        <h3 id="pisteet"> </h3>
+    </div>
 
-    <!-- Lisää Leafletin JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+    <div class="peli_nappi_kontaineri">
+        <button id="arvaa" class="valikko-nappi"> Arvaa </button>
+        <button id="seuraava" class="valikko-nappi"> Seuraava </button>
+    </div>
 
+
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js" defer></script>
     <script src="../static/kartta.js" defer></script>
+
 
 </body>
 </html>
