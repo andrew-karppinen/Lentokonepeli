@@ -26,7 +26,7 @@ let kaikki_pelaajat_pelannut = false; //tarkistaa onko kaikki pelaajat pelanneet
 const ajastin_elementti = document.getElementById('aika');
 
 let timerInterval;
-let seconds = 0;
+let seconds = 25;
 
 let pelaaja = {"name": "", "score": 0, "airport_counter": 0}; //alustetaan pelaaja objekti
 
@@ -264,7 +264,6 @@ async function main() {
 
 
     //käynnistetään ajastin
-    seconds = 30;
     startTimer();
 
 
