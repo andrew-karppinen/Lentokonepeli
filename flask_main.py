@@ -8,8 +8,8 @@ import os
 
 
 #haetaan käyttäjätunnus ja salasana ympäristömuuttujista
-kayttajatunnus = os.getenv('sqlkayttaja')
-salasana = os.getenv('sqlkayttaja_salasana')
+kayttajatunnus = os.getenv('flight_game_sql_user')
+salasana = os.getenv('flight_game_sql_user_password')
 
 
 
@@ -233,7 +233,6 @@ def save_game():
         "required": ["players"],
         "additionalProperties": False
     }
-
 
     try:
         validate(instance=gamedata, schema=schema) #tarkistetaan parametrinä saadun datan oikeellisuus
