@@ -1,4 +1,10 @@
  # Airport Quest 
+
+![kuva](https://github.com/user-attachments/assets/401a6e57-ed9a-4c96-9b4d-b28ab25d28d9)
+
+
+
+
 Asenna kirjastot:
 > pip install mysql-connector-python
 
