@@ -1,16 +1,4 @@
- # Airport Quest
-## Lentokentän arvauspeli
- 
-#### Projekti 1
-https://github.com/vesavvo/Python_Ohjelmistoteema/blob/main/Projektity%C3%B6/01_Esiprojektin_toimeksianto.md
-
-tästä löytyy tagi "konsolipohjainen_versio": https://github.com/andrew-karppinen/Lentokonepeli/releases/tag/konsolipohjainen_versio
-
-Siitä edespäin tämän projektin toteutus:
-
-#### Projekti 2
-https://github.com/vesavvo/Python_Ohjelmistoteema/blob/main/Projektity%C3%B6/02_Projektity%C3%B6n_toimeksianto.md
-
+ # Airport Quest 
 Asenna kirjastot:
 > pip install mysql-connector-python
 
@@ -18,7 +6,28 @@ Asenna kirjastot:
 
 > pip install jsonschema
 
-#### Ohjeet flight_game tietokannan muokkaamiseen:  [documentation/tietokannan muokkaus.sql](https://github.com/andrew-karppinen/Lentokonepeli/blob/main/documentation/tietokannan%20muokkaus.sql)
+Luo tietokanta flight_game 
+> create database flight_game
+Ota tietokanta käyttöön
+
+> use flight_game
+
+Aja tietokannan luontiskripti joka löytyy:
+documentation/create_database_script.sql
+
+aja se:
+> source full/path/to/create_database_script.sql
+
+aja ohjelma:  
+> python3 flask_main.py
+
+Tämän tulee löytää ympäristömuuttujat:
+
+"flight_game_sql_user" ja "flight_game_sql_user_password"
+
+se olettaa että sql tietokanta löytyy localhostista ja että sen portti on 3306
+
+Kun flask lähtee pyörimään ohjelman voi avata selaimesta, flask kuuntelee porttia 5000
 
 #### Relaatiomalli:
 ![relaatiomalli](https://github.com/user-attachments/assets/55b5e94e-9df5-449e-8ff7-233718a4ead9)
