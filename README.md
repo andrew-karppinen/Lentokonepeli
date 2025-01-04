@@ -33,7 +33,7 @@ Tämän tulee löytää ympäristömuuttujat:
 
 se olettaa että sql tietokanta löytyy localhostista ja että sen portti on 3306
 
-Kun flask lähtee pyörimään ohjelman voi avata selaimesta, flask kuuntelee porttia 5000
+Kun flask lähtee pyörimään ohjelma toimii selaimessa puhelimella tai tietokoneella, flask kuuntelee porttia 5000
 
 #### Relaatiomalli:
 ![relaatiomalli](https://github.com/user-attachments/assets/55b5e94e-9df5-449e-8ff7-233718a4ead9)
