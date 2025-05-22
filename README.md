@@ -14,8 +14,8 @@ Asenna kirjastot:
 
 Luo tietokanta flight_game 
 > create database flight_game
-Ota tietokanta käyttöön
 
+Ota tietokanta käyttöön
 > use flight_game
 
 Aja tietokannan luontiskripti joka löytyy:
